@@ -60,8 +60,11 @@ namespace Framework.Extensions
 		/// <param name="e">The enumeration to act on.</param>
 		/// <returns>The display.</returns>
 		public static string GetDisplay(this Enum e) {
-			var display = e.GetType().GetCustomAttribute<DisplayNameAttribute>(false);
-			return display.IsNull() ? string.Empty : display.DisplayName;
+			var members = e.GetType().GetMember(e.ToString());
+			var display = members.Any()
+				? members.First().GetCustomAttribute(typeof (DescriptionAttribute), false) as DescriptionAttribute
+				: null;
+			return display == null ? string.Empty : display.Description;
 		}
 
 		/// <summary>An IDependencyInjector extension method that configure by convention.</summary>

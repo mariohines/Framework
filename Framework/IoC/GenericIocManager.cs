@@ -33,7 +33,7 @@ namespace Framework.IoC
 		/// <summary>Gets a binding of type.</summary>
 		/// <param name="binding">The binding.</param>
 		/// <returns>The binding of type.</returns>
-		public static Object GetBindingOfType(Type binding) {
+		public static object GetBindingOfType(Type binding) {
 			return Injector.GetBinding(binding);
 		}
 	}

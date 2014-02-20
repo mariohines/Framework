@@ -4,6 +4,7 @@ using System.Linq;
 using FluentAssertions;
 using Framework.Enumerations;
 using Framework.Extensions;
+using Framework.Tests.TestObjects;
 using NUnit.Framework;
 
 namespace Framework.Tests.Extensions
@@ -175,9 +176,19 @@ namespace Framework.Tests.Extensions
 		[TestCase("This is {0} {1} {2} {3}.", "This is you again here later.", new[] { "you", "again", "here", "later" })]
 		[TestCase("This is {0} {1} {2} {3} {4}.", "This is how we roll 100 percent.", new[] { "how", "we", "roll", "100", "percent" })]
 		[TestCase("This is {0} {1} {2} {3} {4} {5}.", "This is how we roll 100 percent BOY.", new[] { "how", "we", "roll", "100", "percent", "BOY" })]
-		public void FormatWith(string value, string expectedResult, params object[] parameters) {
+		public void FormatWithTest(string value, string expectedResult, params object[] parameters) {
 			//act
 			var actualResult = value.FormatWith(parameters);
+
+			//assert
+			actualResult.Should().Be(expectedResult);
+		}
+
+		[TestCase(TestEnumOne.Bird, "Bird")]
+		[TestCase(TestEnumTwo.Mario, "Mario Hines")]
+		public void GetDisplayTests(Enum input, string expectedResult) {
+			//act
+			var actualResult = input.GetDisplay();
 
 			//assert
 			actualResult.Should().Be(expectedResult);

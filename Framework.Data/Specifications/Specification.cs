@@ -20,29 +20,20 @@ using Framework.Data.Interfaces;
 
 namespace Framework.Data.Specifications
 {
-	/// <summary>
-	/// Represent a Specification.
-	/// <remarks>
-	/// This abstract class implements the AND, OR and NOT methods as well as overloading the corresponding operators.
-	/// </remarks>
-	/// </summary>
-	/// <typeparam name="TEntity">Type of item in the criteria</typeparam>
+	/// <summary>Represent a Specification.</summary>
+	/// <remarks>This abstract class implements the AND, OR and NOT methods as well as overloading the corresponding operators.</remarks>
+	/// <typeparam name="TEntity">Type of item in the criteria.</typeparam>
 	public class Specification<TEntity>
 		where TEntity : class, IObjectWithChangeTracker, new()
 	{
-		/// <summary>
-		/// Internal representation of this Specification as Lambda Expression. 
-		/// </summary>
+		/// <summary>Internal representation of this Specification as Lambda Expression.</summary>
 		private readonly Expression<Func<TEntity, bool>> _expression;
 
-		/// <summary>
-		/// Delegate to compiled lambda expression. 
-		/// </summary>
+		/// <summary>Delegate to compiled lambda expression.</summary>
 		private Func<TEntity, bool> _compiledExpression;
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="Specification{TEntity}"/> class. 
-		/// </summary>
+		/// <summary>Initializes a new instance of the <see cref="Specification{TEntity}"/> class.</summary>
+		/// <exception cref="ArgumentNullException">Thrown when one or more required arguments are null.</exception>
 		/// <param name="expression">Lambda Expression to be used for this specification.</param>
 		public Specification(Expression<Func<TEntity, bool>> expression) {
 			if (expression == null) {
@@ -52,12 +43,11 @@ namespace Framework.Data.Specifications
 			_expression = expression;
 		}
 
-		/// <summary>
-		/// And operator
-		/// </summary>
-		/// <param name="leftSideSpecification">Left side operand in this OR operation</param>
-		/// <param name="rightSideSpecification">Right side operand in this OR operation</param>
-		/// <returns>New AND specification</returns>
+		/// <summary>And operator.</summary>
+		/// <exception cref="ArgumentNullException">Thrown when one or more required arguments are null.</exception>
+		/// <param name="leftSideSpecification">Left side operand in this OR operation.</param>
+		/// <param name="rightSideSpecification">Right side operand in this OR operation.</param>
+		/// <returns>New AND specification.</returns>
 		public static Specification<TEntity> operator &(
 			Specification<TEntity> leftSideSpecification, Specification<TEntity> rightSideSpecification) {
 			if (leftSideSpecification == null) {
@@ -71,12 +61,11 @@ namespace Framework.Data.Specifications
 			return leftSideSpecification.And(rightSideSpecification);
 		}
 
-		/// <summary>
-		/// Or operator
-		/// </summary>
-		/// <param name="leftSideSpecification">Left side operand in this OR operation</param>
-		/// <param name="rightSideSpecification">Right side operand in this OR operation</param>
-		/// <returns>New OR specification</returns>
+		/// <summary>Or operator.</summary>
+		/// <exception cref="ArgumentNullException">Thrown when one or more required arguments are null.</exception>
+		/// <param name="leftSideSpecification">Left side operand in this OR operation.</param>
+		/// <param name="rightSideSpecification">Right side operand in this OR operation.</param>
+		/// <returns>New OR specification.</returns>
 		public static Specification<TEntity> operator |(
 			Specification<TEntity> leftSideSpecification, Specification<TEntity> rightSideSpecification) {
 			if (leftSideSpecification == null) {
@@ -90,11 +79,10 @@ namespace Framework.Data.Specifications
 			return leftSideSpecification.Or(rightSideSpecification);
 		}
 
-		/// <summary>
-		/// Not specification
-		/// </summary>
-		/// <param name="specification">Specification to negate</param>
-		/// <returns>New NOT specification</returns>
+		/// <summary>Not specification.</summary>
+		/// <exception cref="ArgumentNullException">Thrown when one or more required arguments are null.</exception>
+		/// <param name="specification">Specification to negate.</param>
+		/// <returns>New NOT specification.</returns>
 		public static Specification<TEntity> operator !(Specification<TEntity> specification) {
 			if (specification == null) {
 				throw new ArgumentNullException("specification");
@@ -103,37 +91,30 @@ namespace Framework.Data.Specifications
 			return specification.Not();
 		}
 
-		/// <summary>
-		/// Override operator false, only for support AND OR operators
-		/// </summary>
-		/// <param name="specification">Specification instance</param>
-		/// <returns>See False operator in C#</returns>
+		/// <summary>Override operator false, only for support AND OR operators.</summary>
+		/// <param name="specification">Specification instance.</param>
+		/// <returns>See False operator in C#.</returns>
 		public static bool operator false(Specification<TEntity> specification) {
 			// must return false so that conditional operators && and || work as expected.
 			return false;
 		}
 
-		/// <summary>
-		/// Override operator True, only for support AND OR operators
-		/// </summary>
-		/// <param name="specification">Specification instance</param>
-		/// <returns>See True operator in C#</returns>
+		/// <summary>Override operator True, only for support AND OR operators.</summary>
+		/// <param name="specification">Specification instance.</param>
+		/// <returns>See True operator in C#.</returns>
 		public static bool operator true(Specification<TEntity> specification) {
 			// must return false so that conditional operators && and || work as expected.
 			return false;
 		}
 
-		/// <summary>
-		/// Returns the Internal Lambda Expression for this Specification.
-		/// </summary>
+		/// <summary>Returns the Internal Lambda Expression for this Specification.</summary>
 		/// <returns>Internal Lambda Expression for this Specification.</returns>
 		public Expression<Func<TEntity, bool>> Expression() {
 			return _expression;
 		}
 
-		/// <summary>
-		/// Test if candidate satisfies this specification.
-		/// </summary>
+		/// <summary>Test if candidate satisfies this specification.</summary>
+		/// <exception cref="ArgumentNullException">Thrown when one or more required arguments are null.</exception>
 		/// <param name="candidate">Candidate to test.</param>
 		/// <returns>A value indicating whether the candidate satisfies the specification.</returns>
 		public bool IsSatisfiedBy(TEntity candidate) {
@@ -150,9 +131,8 @@ namespace Framework.Data.Specifications
 			return _compiledExpression(candidate);
 		}
 
-		/// <summary>
-		/// ANDs a new specification with this specification. 
-		/// </summary>
+		/// <summary>ANDs a new specification with this specification.</summary>
+		/// <exception cref="ArgumentNullException">Thrown when one or more required arguments are null.</exception>
 		/// <param name="other">The specfication to And with this specification.</param>
 		/// <returns>Returns the results of the AND operation.</returns>
 		public Specification<TEntity> And(Specification<TEntity> other) {
@@ -168,9 +148,8 @@ namespace Framework.Data.Specifications
 			return new Specification<TEntity>(expressionBuilder.ToExpression());
 		}
 
-		/// <summary>
-		/// ORs a new specification with this specification. 
-		/// </summary>
+		/// <summary>ORs a new specification with this specification.</summary>
+		/// <exception cref="ArgumentNullException">Thrown when one or more required arguments are null.</exception>
 		/// <param name="other">The specfication to OR with this specification.</param>
 		/// <returns>Returns the results of the OR operation.</returns>
 		public Specification<TEntity> Or(Specification<TEntity> other) {
@@ -186,9 +165,7 @@ namespace Framework.Data.Specifications
 			return new Specification<TEntity>(expressionBuilder.ToExpression());
 		}
 
-		/// <summary>
-		/// Negates the current Specification. 
-		/// </summary>
+		/// <summary>Negates the current Specification.</summary>
 		/// <returns>Returns the results of the NOT operation on this Specification.</returns>
 		public Specification<TEntity> Not() {
 			// Build new Expression
@@ -199,10 +176,8 @@ namespace Framework.Data.Specifications
 			return new Specification<TEntity>(expressionBuilder.ToExpression());
 		}
 
-		/// <summary>
-		/// Convert expression to String representation.
-		/// </summary>
-		/// <returns>A string representation of this Specifications</returns>
+		/// <summary>Convert expression to String representation.</summary>
+		/// <returns>A string representation of this Specifications.</returns>
 		public override string ToString() {
 			return _expression.Body.ToString();
 		}

@@ -46,11 +46,11 @@ namespace Framework.Interfaces
 	}
 
 	/// <summary>Interface for dependency injector.</summary>
-	/// <typeparam name="TSource">Type of the source.</typeparam>
-	public interface IDependencyInjector<out TSource> : IDependencyInjector
+	/// <typeparam name="TContainer">Type of the container.</typeparam>
+	public interface IDependencyInjector<out TContainer> : IDependencyInjector
 	{
 		/// <summary>Gets the container.</summary>
 		/// <value>The container.</value>
-		new TSource Container { get; }
+		new TContainer Container { get; }
 	}
 }
