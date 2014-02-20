@@ -31,12 +31,12 @@ namespace Framework.Extensions
 			return source ?? new List<TSource>().AsEnumerable();
 		}
 
-		/// <summary>Extension method to safely cast an IEnumerable to an IEnumerable of type <typeparamref name="TSource"/>.</summary>
-		/// <typeparam name="TSource">The source type.</typeparam>
-		/// <param name="source">The source IEnumerable of type <typeparamref name="TSource"/>.</param>
-		/// <returns>An IEnumerable of type <typeparamref name="TSource"/>.</returns>
-		public static IEnumerable<TSource> SafeCast<TSource>(this IEnumerable source) {
-			return (from object item in source select (TSource) Convert.ChangeType(item, typeof (TSource)));
+		/// <summary>Extension method to safely cast an IEnumerable to an IEnumerable of type <typeparamref name="TTarget"/>.</summary>
+		/// <typeparam name="TTarget">The target type.</typeparam>
+		/// <param name="source">The source IEnumerable of type <typeparamref name="TTarget"/>.</param>
+		/// <returns>An IEnumerable of type <typeparamref name="TTarget"/>.</returns>
+		public static IEnumerable<TTarget> SafeCast<TTarget>(this IEnumerable source) {
+			return (from object item in source select (TTarget) Convert.ChangeType(item, typeof (TTarget)));
 		}
 
 		///<summary>Extension method that queries if 'source' is empty or null.</summary>

@@ -84,6 +84,7 @@
     </Compile>
     <Compile Include="Interfaces\IAuditable.cs" />
     <Compile Include="Interfaces\IDependencyInjector.cs" />
+    <Compile Include="Interfaces\IDependencyParameter.cs" />
     <Compile Include="Interfaces\ILoggable.cs" />
     <Compile Include="Interfaces\INotifyComplexPropertyChanging.cs" />
     <Compile Include="Interfaces\IXmlSerializer.cs" />

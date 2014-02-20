@@ -13,30 +13,36 @@ namespace Framework.Interfaces
 		/// <summary>Binds this object.</summary>
 		/// <typeparam name="TSource">Type of the source.</typeparam>
 		/// <typeparam name="TDestination">Type of the destination.</typeparam>
-		void Bind<TSource, TDestination>() where TDestination : TSource;
+		/// <param name="parameters">Options for controlling the operation.</param>
+		void Bind<TSource, TDestination>(params IDependencyParameter[] parameters) where TDestination : TSource;
 
 		/// <summary>Binds.</summary>
 		/// <param name="source">Source for the.</param>
 		/// <param name="destination">Destination for the.</param>
-		void Bind(Type source, Type destination);
+		/// <param name="parameters">Options for controlling the operation.</param>
+		void Bind(Type source, Type destination, params IDependencyParameter[] parameters);
 
 		/// <summary>Bind self.</summary>
 		/// <typeparam name="TSource">Type of the source.</typeparam>
-		void BindSelf<TSource>();
+		/// <param name="parameters">Options for controlling the operation.</param>
+		void BindSelf<TSource>(params IDependencyParameter[] parameters);
 
 		/// <summary>Bind self.</summary>
 		/// <param name="source">Source for the.</param>
-		void BindSelf(Type source);
+		/// <param name="parameters">Options for controlling the operation.</param>
+		void BindSelf(Type source, params IDependencyParameter[] parameters);
 
 		/// <summary>Gets a binding.</summary>
 		/// <typeparam name="TBinding">Type of the binding.</typeparam>
-		/// <returns>.</returns>
-		TBinding GetBinding<TBinding>();
+		/// <param name="parameters">Options for controlling the operation.</param>
+		/// <returns>The binding&lt; t binding&gt;</returns>
+		TBinding GetBinding<TBinding>(params IDependencyParameter[] parameters);
 
 		/// <summary>Gets a binding.</summary>
 		/// <param name="binding">The binding.</param>
+		/// <param name="parameters">Options for controlling the operation.</param>
 		/// <returns>The binding.</returns>
-		object GetBinding(Type binding);
+		object GetBinding(Type binding, params IDependencyParameter[] parameters);
 	}
 
 	/// <summary>Interface for dependency injector.</summary>

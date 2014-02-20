@@ -20,13 +20,12 @@ namespace Framework.Builders
 		private const string NamespaceExpression = "\\sxmlns:\\w+=\".*\"";
 
 		///<summary>Default constructor.</summary>
-		///<remarks>Mhines, 11/24/2012.</remarks>
-		public XmlClassBuilder(Encoding encoding = null) {
+		public XmlClassBuilder(Encoding encoding = null, bool canIndent = true, NewLineHandling lineHandling = NewLineHandling.Entitize) {
 			_settings = new XmlWriterSettings {
 				Encoding = encoding ?? Encoding.UTF8,
-				Indent = true,
+				Indent = canIndent,
 				NamespaceHandling = NamespaceHandling.OmitDuplicates,
-				NewLineHandling = NewLineHandling.Entitize
+				NewLineHandling = lineHandling
 			};
 			_xsltTransformer = new XslCompiledTransform(true);
 
