@@ -7,8 +7,6 @@ namespace Framework.Web.Configuration
 	public sealed class XmlRoutingConfiguration : ConfigurationSection
 	{
 		#region Fields
-		private static readonly ConfigurationProperty RouteFile;
-		private static readonly ConfigurationProperty IsCached;
 		private static readonly ConfigurationPropertyCollection Property; 
 		#endregion
 
@@ -38,10 +36,10 @@ namespace Framework.Web.Configuration
 		#endregion
 
 		static XmlRoutingConfiguration() {
-			RouteFile = new ConfigurationProperty("routeFile", typeof (string), @"App_Data\routes.xml",
-			                                      ConfigurationPropertyOptions.None);
-			IsCached = new ConfigurationProperty("isCached", typeof (bool), false, ConfigurationPropertyOptions.IsRequired);
-			Property = new ConfigurationPropertyCollection {RouteFile, IsCached};
+			var routeFile = new ConfigurationProperty("routeFile", typeof (string), @"App_Data\routes.xml",
+				ConfigurationPropertyOptions.None);
+			var isCached = new ConfigurationProperty("isCached", typeof (bool), false, ConfigurationPropertyOptions.IsRequired);
+			Property = new ConfigurationPropertyCollection {routeFile, isCached};
 		}
 	}
 }

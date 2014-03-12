@@ -117,8 +117,8 @@ namespace Framework.Web.Builders
 		public FluentTagBuilder AppendInnerHtml(MvcHtmlString text) {
 			var builder = new StringBuilder(InnerHtml);
 			builder.AppendLine(InnerHtml.HasValue()
-			                   	? text.ToHtmlString()
-			                   	: string.Format("{0}{1}", Environment.NewLine, text.ToHtmlString()));
+				? text.ToHtmlString()
+				: string.Format("{0}{1}", Environment.NewLine, text.ToHtmlString()));
 			InnerHtml = builder.ToString();
 			return this;
 		}
@@ -129,6 +129,16 @@ namespace Framework.Web.Builders
 		public MvcHtmlString Render(TagRenderMode renderMode = TagRenderMode.Normal) {
 			return _tagBuilder.ToString(renderMode).ToMvcString();
 		}
+
+		#region Overrides of Object
+
+		/// <summary>Returns a string that represents the current object.</summary>
+		/// <returns>A string that represents the current object.</returns>
+		public override string ToString() {
+			return _tagBuilder.ToString();
+		}
+
+		#endregion
 
 		#endregion End Public Methods
 	}

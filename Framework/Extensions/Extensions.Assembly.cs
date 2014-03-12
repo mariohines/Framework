@@ -66,7 +66,10 @@ namespace Framework.Extensions
 				var currentInterface = @interface;
 				var implementations = assembly.GetInterfaceImplementations(currentInterface).ToList();
 				if (!implementations.Any()) continue;
-				var inheritors = currentInterface.GetInterfaces().Where(i => i.Assembly.GetName().Name.StartsWith("System")).ToList();
+				var inheritors =
+					currentInterface.GetInterfaces()
+						.Where(i => !i.Assembly.GetName().Name.StartsWith(SystemString) && !i.Assembly.GetName().Name.StartsWith(MscorlibString))
+						.ToList();
 				implementations.ForEach(i =>
 										{
 											injector.Bind(currentInterface, i);
@@ -84,7 +87,7 @@ namespace Framework.Extensions
 				var currentInterface = @interface;
 				var implementations = assemblies.GetInterfaceImplementations(currentInterface).ToList();
 				if (!implementations.Any()) continue;
-				var inheritors = currentInterface.GetInterfaces().Where(i => i.Assembly.GetName().Name.StartsWith("System")).ToList();
+				var inheritors = currentInterface.GetInterfaces().ToList();
 				implementations.ForEach(i =>
 										{
 											injector.Bind(currentInterface, i);

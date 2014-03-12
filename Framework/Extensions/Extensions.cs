@@ -14,6 +14,8 @@ namespace Framework.Extensions
 	public static partial class Extensions
 	{
 		private static readonly ParallelOptions Options;
+		private const string SystemString = "System";
+		private const string MscorlibString = "mscorlib";
 
 		static Extensions() {
 			Options = new ParallelOptions
@@ -77,7 +79,7 @@ namespace Framework.Extensions
 				return;
 			}
 			var assemblies = new List<Assembly>{ assembly };
-			var assemblyNames = assembly.GetReferencedAssemblies().Where(asm => !asm.Name.StartsWith("System") && !asm.Name.Equals("mscorlib")).ToList();
+			var assemblyNames = assembly.GetReferencedAssemblies().Where(asm => !asm.Name.StartsWith(SystemString) && !asm.Name.Equals(MscorlibString)).ToList();
 			assemblyNames.ForEach(asm =>
 								  {
 									  var loopAssembly = Assembly.Load(asm);

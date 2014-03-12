@@ -27,23 +27,25 @@ namespace Framework.Tests.Collections
 			dynamic collection = new DynamicCollection(input);
 
 			// act
-			string result = collection.Get;
+			string actualResult = collection.Get;
 
 			// assert
-			result.Should().Be(expectedResult);
+			actualResult.Should().Be(expectedResult);
 		}
 
-		[Test]
-		public void CanSetValue() {
+		[TestCase("Some")]
+		[TestCase(1)]
+		[TestCase(.001)]
+		public void CanSetValue(object expectedResult) {
 			// arrange
 			dynamic collection = new DynamicCollection();
 
 			// act
-			collection.Get = "Some";
-			string result = collection.Get;
+			collection.Get = expectedResult;
+			object actualResult = collection.Get;
 
 			// assert
-			result.Should().Be("Some");
+			actualResult.Should().Be(expectedResult);
 		}
 
 		[TestCaseSource("CanUseDictionarySource")]
@@ -52,10 +54,10 @@ namespace Framework.Tests.Collections
 			dynamic collection = new DynamicCollection(input);
 
 			// act
-			object result = collection.Get;
+			object actualResult = collection.Get;
 
 			// assert
-			result.Should().Be(expectedResult);
+			actualResult.Should().Be(expectedResult);
 		}
 	}
 }

@@ -25,16 +25,18 @@ namespace Framework.IoC
 
 		/// <summary>Gets the binding of type.</summary>
 		/// <typeparam name="TBinding">Type of the binding.</typeparam>
+		/// <param name="parameters">The parameters that may be necessary to retrieve the binding.</param>
 		/// <returns>The binding of type&lt; t binding&gt;</returns>
-		public static TBinding GetBindingOfType<TBinding>() {
-			return Injector.GetBinding<TBinding>();
+		public static TBinding GetBindingOfType<TBinding>(params IDependencyParameter[] parameters) {
+			return Injector.GetBinding<TBinding>(parameters);
 		}
 
 		/// <summary>Gets a binding of type.</summary>
 		/// <param name="binding">The binding.</param>
+		/// <param name="parameters">The parameters that may be necessary to retrieve the binding.</param>
 		/// <returns>The binding of type.</returns>
-		public static object GetBindingOfType(Type binding) {
-			return Injector.GetBinding(binding);
+		public static object GetBindingOfType(Type binding, params IDependencyParameter[] parameters) {
+			return Injector.GetBinding(binding, parameters);
 		}
 	}
 }

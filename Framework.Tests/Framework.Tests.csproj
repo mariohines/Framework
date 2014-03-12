@@ -80,6 +80,7 @@
   <ItemGroup>
     <Compile Include="Builders\XmlClassBuilderTests.cs" />
     <Compile Include="Collections\DynamicCollectionTests.cs" />
+    <Compile Include="Configuration\DynamicConfigurationManagerTests.cs" />
     <Compile Include="Extensions\ExtensionsTests.cs" />
     <Compile Include="Interfaces\DependencyInjectorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -93,10 +94,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Configuration\" />
     <Folder Include="IoC\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
