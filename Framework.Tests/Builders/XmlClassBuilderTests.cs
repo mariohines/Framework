@@ -1,7 +1,7 @@
 ﻿using System.Xml;
 using FluentAssertions;
-using Framework.Builders;
-using Framework.Interfaces;
+using Framework.Core.Builders;
+using Framework.Core.Interfaces;
 using Framework.Tests.TestObjects;
 using NUnit.Framework;
 

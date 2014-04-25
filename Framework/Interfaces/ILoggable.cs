@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Framework.Interfaces
+namespace Framework.Core.Interfaces
 {
 	/// <summary>Interface for loggable.</summary>
 	public interface ILoggable

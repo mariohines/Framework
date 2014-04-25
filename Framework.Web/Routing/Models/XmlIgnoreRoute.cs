@@ -1,6 +1,6 @@
 ﻿using System.Web.Routing;
 using System.Xml.Serialization;
-using Framework.Extensions;
+using Framework.Core.Extensions;
 
 namespace Framework.Web.Routing.Models
 {

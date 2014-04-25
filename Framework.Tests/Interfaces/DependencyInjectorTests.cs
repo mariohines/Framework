@@ -1,4 +1,4 @@
-﻿using Framework.Interfaces;
+﻿using Framework.Core.Interfaces;
 using NSubstitute;
 using NUnit.Framework;
 

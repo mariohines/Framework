@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Web.Mvc;
-using Framework.Extensions;
+using Framework.Core.Extensions;
 using Framework.Web.Extensions;
 
 namespace Framework.Web.Builders

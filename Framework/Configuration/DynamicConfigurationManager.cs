@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Configuration;
-using Framework.Collections;
+using Framework.Core.Collections;
 
-namespace Framework.Configuration
+namespace Framework.Core.Configuration
 {
 	/// <summary>A dynamic class for handling AppSetting and ConnectionStrings.</summary>
 	public static class DynamicConfigurationManager

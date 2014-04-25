@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using FluentAssertions;
-using Framework.Enumerations;
-using Framework.Extensions;
+using Framework.Core.Enumerations;
+using Framework.Core.Extensions;
 using Framework.Tests.TestObjects;
 using NUnit.Framework;
 

@@ -2,7 +2,7 @@
 using System.Threading;
 using Ninject;
 
-namespace Framework.IoC.Ninject
+namespace Framework.Core.IoC.Ninject
 {
 	/// <summary>IOC kernel.</summary>
 	/// <remarks>A singleton of the standard kernel for Ninject.</remarks>

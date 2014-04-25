@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using LinqKit;
 
-namespace Framework.Extensions
+namespace Framework.Core.Extensions
 {
 	public static partial class Extensions
 	{
@@ -21,6 +21,13 @@ namespace Framework.Extensions
 		/// <returns>A boolean value.</returns>
 		public static bool HasValue(this string source) {
 			return !string.IsNullOrWhiteSpace(source);
+		}
+
+		/// <summary>A string extension method that returns null if empty or whitespace.</summary>
+		/// <param name="source">The source string.</param>
+		/// <returns>A string.</returns>
+		public static string NullIfEmpty(this string source) {
+			return source.HasValue() ? source : null;
 		}
 
 		/// <summary>Extension method to do a mass replace of old strings with a new string.</summary>

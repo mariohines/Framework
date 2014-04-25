@@ -1,4 +1,4 @@
-﻿namespace Framework.Interfaces
+﻿namespace Framework.Core.Interfaces
 {
 	/// <summary>Interface for dependency parameter.</summary>
 	public interface IDependencyParameter

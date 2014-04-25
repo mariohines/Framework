@@ -8,9 +8,9 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using EntityFramework.Extensions;
+using Framework.Core.Extensions;
 using Framework.Data.Enumerations;
 using Framework.Data.Interfaces;
-using Framework.Extensions;
 using LinqKit;
 
 namespace Framework.Data.Abstract
@@ -112,26 +112,9 @@ namespace Framework.Data.Abstract
 				.AsEnumerable();
 		}
 
-		/// <summary>Generic method to 'Get' a collection of T.</summary>
-		/// <param name="parameters">An array of expressions to query by.</param>
-		/// <returns>A collection of type TEntity asynchronously.</returns>
-		[DebuggerNonUserCode]
-		public virtual async Task<IEnumerable<TEntity>> GetEntitiesAsync(params Expression<Func<TEntity, bool>>[] parameters) {
-			return await Task<IEnumerable<TEntity>>.Factory.StartNew(() => GetEntities(parameters));
-		}
-
-		/// <summary>Generic method to 'Get' a collection of T.</summary>
-		/// <param name="maxRows">Max number of rows to take.</param>
-		/// <param name="parameters">An array of expressions to query by.</param>
-		/// <returns>A collection of type TEntity asynchronously.</returns>
-		[DebuggerNonUserCode]
-		public virtual async Task<IEnumerable<TEntity>> GetEntitiesAsync(int maxRows, params Expression<Func<TEntity, bool>>[] parameters) {
-			return await Task<IEnumerable<TEntity>>.Factory.StartNew(() => GetEntities(maxRows, parameters));
-		}
-
-		/// <summary></summary>
-		/// <param name="parameters">An array of expressions to query by.</param>
-		/// <returns></returns>
+		/// <summary>Gets entities count.</summary>
+		/// <param name="parameters">Options for controlling the operation.</param>
+		/// <returns>The entities count.</returns>
 		[DebuggerNonUserCode]
 		public virtual long GetEntitiesCount(params Expression<Func<TEntity, bool>>[] parameters) {
 			return parameters.Aggregate(ItemSet.AsExpandable(), (current, expression) => current.Where(expression)).LongCount();
@@ -226,6 +209,32 @@ namespace Framework.Data.Abstract
 			builder.AppendFormat("{0} ", procedureName.Replace(" ", string.Empty));
 			builder.Append(parameters.Keys.Join(","));
 			Context.ExecuteProcedure(builder.ToString(), parameters.Values.ToArray());
+		}
+
+		#endregion
+	}
+
+	/// <summary>A base database repository.</summary>
+	/// <typeparam name="TDbContext">Type of the database context.</typeparam>
+	/// <typeparam name="TEntity">Type of the entity.</typeparam>
+	public abstract class BaseDbRepository<TDbContext, TEntity> : BaseDbRepository<TEntity>
+		where TDbContext : class, IDbContext
+		where TEntity : class, new()
+	{
+		/// <summary>Gets the current object inherited from <typeparamref name="TDbContext"/>.</summary>
+		protected new TDbContext Context { get; private set; }
+
+		#region Constructors
+
+		/// <summary>Specialised constructor for use only by derived classes.</summary>
+		/// <param name="context">The current object inherited from <typeparamref name="TDbContext"/>.</param>
+		protected BaseDbRepository(TDbContext context) : base(context) {
+			Context = context;
+		}
+
+		/// <summary>Finaliser.</summary>
+		~BaseDbRepository() {
+			Dispose(false);
 		}
 
 		#endregion

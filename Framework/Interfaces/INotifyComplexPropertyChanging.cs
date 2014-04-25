@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Framework.Interfaces
+namespace Framework.Core.Interfaces
 {
 	/// <summary>Interface for notify complex property changing.</summary>
 	public interface INotifyComplexPropertyChanging

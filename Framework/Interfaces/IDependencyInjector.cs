@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Framework.Interfaces
+namespace Framework.Core.Interfaces
 {
 	/// <summary>Interface for dependency injector.</summary>
 	/// <remarks>The purpose of this interface is to abstract away the dependency injection framework choice.</remarks>

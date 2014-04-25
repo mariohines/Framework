@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Web.Mvc;
-using Framework.Extensions;
+using Framework.Core.Extensions;
 
 namespace Framework.Web.Routing
 {

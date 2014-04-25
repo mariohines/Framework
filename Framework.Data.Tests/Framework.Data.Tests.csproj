@@ -91,13 +91,12 @@
       <Project>{02cf0ffe-8074-4a73-a9ec-88314bd34dc4}</Project>
       <Name>Framework.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Framework\Framework.csproj">
+    <ProjectReference Include="..\Framework\Framework.Core.csproj">
       <Project>{7bc9a7b9-ef66-4ac1-8498-c0feb3c34547}</Project>
-      <Name>Framework</Name>
+      <Name>Framework.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

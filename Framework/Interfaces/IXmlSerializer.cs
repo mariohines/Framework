@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Xml;
 
-namespace Framework.Interfaces
+namespace Framework.Core.Interfaces
 {
 	/// <summary>Interface to implement custom class serialization.</summary>
 	public interface IXmlSerializer

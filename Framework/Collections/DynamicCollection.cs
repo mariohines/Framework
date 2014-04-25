@@ -5,7 +5,7 @@ using System.Data;
 using System.Dynamic;
 using System.Linq;
 
-namespace Framework.Collections
+namespace Framework.Core.Collections
 {
 	/// <summary>A dynamic class for setting up dynamic configuration collections.</summary>
 	public class DynamicCollection : DynamicObject

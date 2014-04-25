@@ -1,4 +1,4 @@
-﻿namespace Framework.Enumerations
+﻿namespace Framework.Core.Enumerations
 {
 	///<summary>Enumeration for the Astrological Zodiac signs.</summary>
 	///<remarks>Mhines, 11/24/2012.</remarks>

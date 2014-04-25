@@ -15,7 +15,7 @@
 
 using System;
 using System.Linq.Expressions;
-using Framework.Builders;
+using Framework.Core.Builders;
 using Framework.Data.Interfaces;
 
 namespace Framework.Data.Specifications

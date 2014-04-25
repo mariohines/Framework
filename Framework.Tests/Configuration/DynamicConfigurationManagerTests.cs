@@ -1,6 +1,6 @@
 ﻿using System.Data.SqlClient;
 using FluentAssertions;
-using Framework.Configuration;
+using Framework.Core.Configuration;
 using NUnit.Framework;
 
 namespace Framework.Tests.Configuration

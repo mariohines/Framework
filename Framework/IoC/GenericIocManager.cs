@@ -1,8 +1,8 @@
 ﻿using System;
-using Framework.Extensions;
-using Framework.Interfaces;
+using Framework.Core.Extensions;
+using Framework.Core.Interfaces;
 
-namespace Framework.IoC
+namespace Framework.Core.IoC
 {
 	/// <summary>Manager for generic inversion of control.</summary>
 	/// <remarks>Wrapper for managing other injection frameworks.</remarks>

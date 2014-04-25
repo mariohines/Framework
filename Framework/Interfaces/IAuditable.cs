@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Framework.Interfaces
+namespace Framework.Core.Interfaces
 {
 	/// <summary>Interface for auditable.</summary>
 	/// <typeparam name="TKey">Type of the Id property.</typeparam>

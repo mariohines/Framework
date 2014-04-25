@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.Specialized;
 using FluentAssertions;
-using Framework.Collections;
+using Framework.Core.Collections;
 using NUnit.Framework;
 
 namespace Framework.Tests.Collections

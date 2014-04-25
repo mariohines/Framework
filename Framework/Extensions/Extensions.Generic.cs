@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Framework.Extensions
+namespace Framework.Core.Extensions
 {
 	public static partial class Extensions
 	{

@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Framework.Interfaces;
+using Framework.Core.Interfaces;
 using LinqKit;
 
-namespace Framework.Extensions
+namespace Framework.Core.Extensions
 {
 	public static partial class Extensions
 	{

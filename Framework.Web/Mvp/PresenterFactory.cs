@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI;
-using Framework.IoC;
-using Framework.IoC.Ninject;
+using Framework.Core.IoC;
+using Framework.Core.IoC.Ninject;
 using Framework.Web.Mvp.Interface;
 
 namespace Framework.Web.Mvp

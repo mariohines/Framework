@@ -9,7 +9,7 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
-namespace Framework.Builders
+namespace Framework.Core.Builders
 {
 	/// <summary>
 	/// Helper class for rewritting epressions. 

@@ -5,10 +5,9 @@ using System.Data;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using Framework.Interfaces;
-using LinqKit;
+using Framework.Core.Interfaces;
 
-namespace Framework.Extensions
+namespace Framework.Core.Extensions
 {
 	/// <summary>Collection of commonly used extensions.</summary>
 	public static partial class Extensions
@@ -71,15 +70,19 @@ namespace Framework.Extensions
 
 		/// <summary>An IDependencyInjector extension method that configure by convention.</summary>
 		/// <param name="injector">The injector to act on.</param>
-		/// <param name="bindAll">(optional) the bind all.</param>
-		public static void ConfigureByConvention(this IDependencyInjector injector, bool bindAll = false) {
+		/// <param name="bindAll">If true, binds all assemblies in the folder. (Optional) Defaults to false.</param>
+		/// <param name="excludedAssemblies">The exact names of assemblies to exclude if <paramref name="bindAll"/> is set to true.</param>
+		/// <remarks>By default...all System libraries as well as mscorlib is excluded.</remarks>
+		public static void ConfigureByConvention(this IDependencyInjector injector, bool bindAll = false, params string[] excludedAssemblies) {
 			var assembly = Assembly.GetCallingAssembly();
 			if (!bindAll) {
 				assembly.BindAssembly(injector);
 				return;
 			}
 			var assemblies = new List<Assembly>{ assembly };
-			var assemblyNames = assembly.GetReferencedAssemblies().Where(asm => !asm.Name.StartsWith(SystemString) && !asm.Name.Equals(MscorlibString)).ToList();
+			var exclusions = new List<string> {MscorlibString};
+			exclusions.AddRange(excludedAssemblies);
+			var assemblyNames = assembly.GetReferencedAssemblies().Where(asm => !asm.Name.StartsWith(SystemString) && !exclusions.Contains(asm.Name)).ToList();
 			assemblyNames.ForEach(asm =>
 								  {
 									  var loopAssembly = Assembly.Load(asm);

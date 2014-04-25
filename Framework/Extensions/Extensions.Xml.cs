@@ -1,9 +1,9 @@
 ﻿using System.IO;
 using System.Xml;
 using System.Xml.Linq;
-using Framework.Builders;
+using Framework.Core.Builders;
 
-namespace Framework.Extensions
+namespace Framework.Core.Extensions
 {
 	public static partial class Extensions
 	{

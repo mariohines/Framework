@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace Framework.Builders
+namespace Framework.Core.Builders
 {
 	/// <summary>
 	/// Class used to build Expressions for Specifications.

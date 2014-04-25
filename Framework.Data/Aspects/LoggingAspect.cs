@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
-using Framework.Extensions;
-using Framework.Interfaces;
-using Framework.IoC;
-using Framework.IoC.Ninject;
+using Framework.Core.Extensions;
+using Framework.Core.Interfaces;
+using Framework.Core.IoC;
+using Framework.Core.IoC.Ninject;
 using PostSharp.Aspects;
 
 namespace Framework.Data.Aspects

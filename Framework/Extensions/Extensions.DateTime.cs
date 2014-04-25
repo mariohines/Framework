@@ -1,7 +1,7 @@
 ﻿using System;
-using Framework.Enumerations;
+using Framework.Core.Enumerations;
 
-namespace Framework.Extensions
+namespace Framework.Core.Extensions
 {
 	public static partial class Extensions
 	{

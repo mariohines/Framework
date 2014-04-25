@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{FF4662CD-115A-4AF1-82C0-0BA8D83B9DAF}</ProjectGuid>
+    <ProjectGuid>{7BC9A7B9-EF66-4AC1-8498-C0FEB3C34547}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Framework.Web</RootNamespace>
-    <AssemblyName>Framework.Web</AssemblyName>
+    <RootNamespace>Framework.Core</RootNamespace>
+    <AssemblyName>Framework.Core</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -34,18 +34,22 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
-    <DocumentationFile>bin\Release\Framework.Web.XML</DocumentationFile>
+    <DocumentationFile>bin\Release\Framework.Core.xml</DocumentationFile>
+    <DebugSymbols>false</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Ninject">
+    <Reference Include="LinqKit, Version=1.0.0.0, Culture=neutral, PublicKeyToken=bc217f8844052a91, processorArchitecture=MSIL">
+      <HintPath>..\packages\LinqKit.1.0\lib\35\LinqKit.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject, Version=3.0.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\Libraries\NuGetPackages\Ninject.3.0.1.10\lib\net45-full\Ninject.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Web" />
-    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
-    <Reference Include="System.Web.WebPages, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -53,41 +57,51 @@
     <Compile Include="..\BaseAssemblyInfo.cs">
       <Link>Properties\BaseAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Builders\FluentTagBuilder.cs" />
-    <Compile Include="Builders\XmlRouteBuilder.cs" />
-    <Compile Include="Builders\XmlRouteWatcher.cs" />
-    <Compile Include="Configuration\XmlRoutingConfiguration.cs" />
-    <Compile Include="Extensions\Extensions.cs" />
-    <Compile Include="Mvc\Abstract\BaseAsyncMvcController.cs" />
-    <Compile Include="Mvc\Abstract\BaseFormAction.cs" />
-    <Compile Include="Mvc\Abstract\BaseMvcController.cs" />
-    <Compile Include="Mvc\Abstract\BaseMvcViewPage.cs" />
-    <Compile Include="Mvc\Helpers\HelperExtensions.cs" />
-    <Compile Include="Mvc\Interfaces\IFormHandler.cs" />
-    <Compile Include="Mvp\Abstract\BaseView.cs">
-      <SubType>ASPXCodeBehind</SubType>
+    <Compile Include="Builders\ExpressionBuilder.cs" />
+    <Compile Include="Builders\ParametersRebinder.cs" />
+    <Compile Include="Builders\XmlClassBuilder.cs" />
+    <Compile Include="Collections\DynamicCollection.cs" />
+    <Compile Include="Configuration\DynamicConfigurationManager.cs" />
+    <Compile Include="CsvReader.cs" />
+    <Compile Include="Enumerations\CommonEnumerations.cs" />
+    <Compile Include="Extensions\Extensions.Assembly.cs">
+      <DependentUpon>Extensions.cs</DependentUpon>
     </Compile>
-    <Compile Include="Mvp\Interface\IPresenter.cs" />
-    <Compile Include="Mvp\PresenterFactory.cs" />
-    <Compile Include="Routing\LowercaseRoute.cs" />
-    <Compile Include="Routing\Models\XmlIgnoreRoute.cs" />
-    <Compile Include="Routing\Models\XmlRoute.cs" />
-    <Compile Include="Routing\Models\XmlRouteConstraint.cs" />
-    <Compile Include="Routing\Models\XmlRouteDataToken.cs" />
-    <Compile Include="Routing\Models\XmlRouteDefault.cs" />
-    <Compile Include="Routing\Models\XmlRoutes.cs" />
-    <Compile Include="Routing\PermanentRedirectResult.cs" />
+    <Compile Include="Extensions\Extensions.cs" />
+    <Compile Include="Extensions\Extensions.DateTime.cs">
+      <DependentUpon>Extensions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Extensions\Extensions.Generic.cs">
+      <DependentUpon>Extensions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Extensions\Extensions.Lists.cs">
+      <DependentUpon>Extensions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Extensions\Extensions.Strings.cs">
+      <DependentUpon>Extensions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Extensions\Extensions.Xml.cs">
+      <DependentUpon>Extensions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Interfaces\IAuditable.cs" />
+    <Compile Include="Interfaces\IDependencyInjector.cs" />
+    <Compile Include="Interfaces\IDependencyParameter.cs" />
+    <Compile Include="Interfaces\ILoggable.cs" />
+    <Compile Include="Interfaces\INotifyComplexPropertyChanging.cs" />
+    <Compile Include="Interfaces\ITranslator.cs" />
+    <Compile Include="Interfaces\IXmlSerializer.cs" />
+    <Compile Include="IoC\GenericIocManager.cs" />
+    <Compile Include="IoC\Ninject\NinjectKernel.cs" />
+    <Compile Include="IoC\Ninject\NinjectManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Framework\Framework.Core.csproj">
-      <Project>{7BC9A7B9-EF66-4AC1-8498-C0FEB3C34547}</Project>
-      <Name>Framework.Core</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>if "$(ConfigurationName)" == "Release" XCOPY /I /F /R /Y "$(TargetDir)*.*l" $(BUILDS)\$(SolutionName)</PostBuildEvent>

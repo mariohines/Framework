@@ -9,11 +9,11 @@
 using System;
 using System.Collections.Generic;
 using System.Transactions;
+using Framework.Core.IoC;
+using Framework.Core.IoC.Ninject;
 using Framework.Data.Enumerations;
 using Framework.Data.Exceptions;
 using Framework.Data.Interfaces;
-using Framework.IoC;
-using Framework.IoC.Ninject;
 using Ninject.Parameters;
 
 namespace Framework.Data.Abstract
@@ -82,6 +82,13 @@ namespace Framework.Data.Abstract
 			return GetUnitOfWork(UnitOfWorkOptions.DefaultOptions);
 		}
 
+		/// <summary>Return a new instance of the UnitOfWork class with the default behavior.</summary>
+		/// <typeparam name="TDataContext">Type of the data context.</typeparam>
+		/// <returns>A new instance of the UnitOfWork class.</returns>
+		public static IUnitOfWork GetUnitOfWork<TDataContext>() where TDataContext : IDataContext {
+			return GetUnitOfWork<TDataContext>(UnitOfWorkOptions.DefaultOptions);
+		}
+
 		/// <summary>
 		/// Return the current instance of the Unit of Work class or create a new instance of the UnitOfWork class with the default behavior.
 		/// </summary>
@@ -106,6 +113,30 @@ namespace Framework.Data.Abstract
 			return context.UnitOfWorkQueue.Peek();
 		}
 
+		/// <summary>Return a new instance of the UnitOfWork class with the default behavior.</summary>
+		/// <exception cref="InvalidUnitOfWorkException">Thrown when an Invalid Unit Of Work error condition occurs.</exception>
+		/// <typeparam name="TDataContext">Type of the data context.</typeparam>
+		/// <param name="createNew">A value indicating whether to create a New UoW or return the existing UoW.</param>
+		/// <returns>A new instance of the UnitOfWork class.</returns>
+		public static IUnitOfWork GetUnitOfWork<TDataContext>(bool createNew)
+			where TDataContext : IDataContext {
+			if (createNew) {
+				return GetUnitOfWork<TDataContext>(UnitOfWorkOptions.DefaultOptions);
+			}
+
+			// Return existing UoW if there is one..
+			// Get instance to ObjectContext..
+			var context = GenericIocManager.IsInUse
+				? GenericIocManager.GetBindingOfType<IUnitOfWork>()
+				: NinjectManager.GetBindingOfType<IUnitOfWork>();
+			if (context.UnitOfWorkCount == 0) {
+				throw new InvalidUnitOfWorkException();
+			}
+
+			// Get current UnitOfWork.
+			return context.UnitOfWorkQueue.Peek();
+		}
+
 		/// <summary>Return a new instance of the Unit of Work class with the specified behavior.</summary>
 		/// <param name="defaultOption">The default Behavior for the new unitOfWork object.</param>
 		/// <returns>A new instance of the UnitOfWork class with the Default behavior set.</returns>
@@ -117,17 +148,45 @@ namespace Framework.Data.Abstract
 			return newUoW;
 		}
 
-		/// <summary>Execute unitof work code block inside a unit of work.</summary>
+		/// <summary>Return a new instance of the UnitOfWork class with the default behavior.</summary>
+		/// <typeparam name="TDataContext">Type of the data context.</typeparam>
+		/// <param name="defaultOption">The default Behavior for the new unitOfWork object.</param>
+		/// <returns>A new instance of the UnitOfWork class.</returns>
+		public static IUnitOfWork GetUnitOfWork<TDataContext>(UnitOfWorkOptions defaultOption)
+			where TDataContext : IDataContext {
+			var context = GenericIocManager.IsInUse
+				? GenericIocManager.GetBindingOfType<TDataContext>()
+				: NinjectManager.GetBindingOfType<TDataContext>();
+			return new UnitOfWork(context) {DefaultOptions = defaultOption};
+		}
+
+		/// <summary>Execute unit of work code block inside a unit of work.</summary>
 		/// <param name="codeBlock">code block to execute inside as a unit of work.</param>
 		public static void Do(Action<IUnitOfWork> codeBlock) {
 			Do(UnitOfWorkOptions.DefaultOptions, codeBlock);
 		}
 
-		/// <summary>Execute code block inside a unit of work.</summary>
+		/// <summary>Execute unit of work code block inside a unit of work.</summary>
+		/// <typeparam name="TDataContext">Type of the data context.</typeparam>
+		/// <param name="codeBlock">code block to execute inside as a unit of work.</param>
+		public static void Do<TDataContext>(Action<IUnitOfWork> codeBlock) where TDataContext : IDataContext {
+			Do<TDataContext>(UnitOfWorkOptions.DefaultOptions, codeBlock);
+		}
+
+		/// <summary>Execute unit of work code block inside a unit of work.</summary>
 		/// <param name="defaultOption">The default Behavior for the new unitOfWork object.</param>
 		/// <param name="codeBlock">code block to execute inside as a unit of work.</param>
 		public static void Do(UnitOfWorkOptions defaultOption, Action<IUnitOfWork> codeBlock) {
 			Do(defaultOption, null, codeBlock);
+		}
+
+		/// <summary>Execute unit of work code block inside a unit of work.</summary>
+		/// <typeparam name="TDataContext">Type of the data context.</typeparam>
+		/// <param name="defaultOption">The default Behavior for the new unitOfWork object.</param>
+		/// <param name="codeBlock">code block to execute inside as a unit of work.</param>
+		public static void Do<TDataContext>(UnitOfWorkOptions defaultOption, Action<IUnitOfWork> codeBlock)
+			where TDataContext : IDataContext {
+			Do<TDataContext>(defaultOption, null, codeBlock);
 		}
 
 		/// <summary>Execute code block inside a unit of work.</summary>
@@ -136,6 +195,28 @@ namespace Framework.Data.Abstract
 		/// <param name="codeBlock">code block to execute inside as a unit of work.</param>
 		public static void Do(UnitOfWorkOptions defaultOption, AuditInfo auditInfo, Action<IUnitOfWork> codeBlock) {
 			var unitOfWork = OnEntryAdvice(defaultOption);
+			unitOfWork.AuditInfo = auditInfo;
+			try {
+				codeBlock(unitOfWork);
+				OnSuccessAdvice(unitOfWork);
+			}
+			catch {
+				OnExceptionAdvice(unitOfWork);
+				throw;
+			}
+			finally {
+				OnExitAdvice(unitOfWork);
+			}
+		}
+
+		/// <summary>Execute unit of work code block inside a unit of work.</summary>
+		/// <typeparam name="TDataContext">Type of the data context.</typeparam>
+		/// <param name="defaultOption">The default Behavior for the new unitOfWork object.</param>
+		/// <param name="auditInfo">AuditInfo class to use during save operation.</param>
+		/// <param name="codeBlock">code block to execute inside as a unit of work.</param>
+		public static void Do<TDataContext>(UnitOfWorkOptions defaultOption, AuditInfo auditInfo, Action<IUnitOfWork> codeBlock)
+			where TDataContext : IDataContext {
+			var unitOfWork = OnEntryAdvice<TDataContext>(defaultOption);
 			unitOfWork.AuditInfo = auditInfo;
 			try {
 				codeBlock(unitOfWork);
@@ -199,6 +280,18 @@ namespace Framework.Data.Abstract
 		/// <returns>Instance of new Unit Of Work.</returns>
 		internal static IUnitOfWork OnEntryAdvice(UnitOfWorkOptions defaultOption) {
 			return GetUnitOfWork(defaultOption);
+		}
+
+		/// <summary>
+		/// This is an Internal method used by UnitOfWork postsharp Aspect. Create a new instance of the UnitOfWork class with the specified
+		/// behavior.
+		/// </summary>
+		/// <typeparam name="TDataContext">Type of the data context.</typeparam>
+		/// <param name="defaultOption">behaviour for new UnitOfWork.</param>
+		/// <returns>Instance of new Unit Of Work.</returns>
+		internal static IUnitOfWork OnEntryAdvice<TDataContext>(UnitOfWorkOptions defaultOption)
+			where TDataContext : IDataContext {
+			return GetUnitOfWork<TDataContext>(defaultOption);
 		}
 
 		/// <summary>This is an Internal method used by the UnitOfWork postsharp Aspect. Perform Auto-Commit logic.</summary>

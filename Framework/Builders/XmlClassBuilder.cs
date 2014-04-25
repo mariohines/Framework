@@ -6,10 +6,10 @@ using System.Text.RegularExpressions;
 using System.Xml;
 using System.Xml.Serialization;
 using System.Xml.Xsl;
-using Framework.Extensions;
-using Framework.Interfaces;
+using Framework.Core.Extensions;
+using Framework.Core.Interfaces;
 
-namespace Framework.Builders
+namespace Framework.Core.Builders
 {
 	///<summary>XML class builder.</summary>
 	///<remarks>Mhines, 11/24/2012.</remarks>

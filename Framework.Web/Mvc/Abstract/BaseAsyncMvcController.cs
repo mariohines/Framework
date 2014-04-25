@@ -1,5 +1,5 @@
 ﻿using System.Web.Mvc;
-using Framework.Collections;
+using Framework.Core.Collections;
 
 namespace Framework.Web.Mvc.Abstract
 {

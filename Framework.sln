@@ -1,7 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework", "Framework\Framework.csproj", "{7BC9A7B9-EF66-4AC1-8498-C0FEB3C34547}"
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30110.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.Core", "Framework\Framework.Core.csproj", "{7BC9A7B9-EF66-4AC1-8498-C0FEB3C34547}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.Data", "Framework.Data\Framework.Data.csproj", "{02CF0FFE-8074-4A73-A9EC-88314BD34DC4}"
 EndProject
@@ -12,7 +14,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		BaseAssemblyInfo.cs = BaseAssemblyInfo.cs
 		Framework.vsmdi = Framework.vsmdi
 		Local.testsettings = Local.testsettings
-		nuget.config = nuget.config
 		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
 	EndProjectSection
 EndProject
@@ -24,17 +25,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.Data.Tests", "Fra
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.Web.Tests", "Framework.Web.Tests\Framework.Web.Tests.csproj", "{E794806F-D4C9-424C-99E2-FE3F772689F8}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{99C7E902-CDD0-4819-B568-7D904EFEF3B4}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\NuGet.Config = .nuget\NuGet.Config
-		.nuget\NuGet.exe = .nuget\NuGet.exe
-		.nuget\NuGet.targets = .nuget\NuGet.targets
-	EndProjectSection
-EndProject
 Global
-	GlobalSection(TestCaseManagementSettings) = postSolution
-		CategoryFile = Framework.vsmdi
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -73,5 +64,8 @@ Global
 		{CA0B2DE2-4154-4B5D-BAA2-FD435F9C9216} = {AC7C1413-815C-4717-9EE1-60A9AF8BB4A8}
 		{93A83DC6-EE68-4BB9-98E2-8869DD7C8AD3} = {AC7C1413-815C-4717-9EE1-60A9AF8BB4A8}
 		{E794806F-D4C9-424C-99E2-FE3F772689F8} = {AC7C1413-815C-4717-9EE1-60A9AF8BB4A8}
+	EndGlobalSection
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = Framework.vsmdi
 	EndGlobalSection
 EndGlobal

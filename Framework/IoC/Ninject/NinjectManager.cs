@@ -2,7 +2,7 @@
 using Ninject;
 using Ninject.Parameters;
 
-namespace Framework.IoC.Ninject
+namespace Framework.Core.IoC.Ninject
 {
 	/// <summary>Manager for Inversion of Control containers.</summary>
 	/// <remarks>A manager for the Ninject framework and handling bindings.</remarks>

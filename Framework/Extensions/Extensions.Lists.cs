@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using LinqKit;
 
-namespace Framework.Extensions
+namespace Framework.Core.Extensions
 {
 	public static partial class Extensions
 	{

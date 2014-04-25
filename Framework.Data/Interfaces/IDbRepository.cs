@@ -36,17 +36,6 @@ namespace Framework.Data.Interfaces
 		/// <returns>A collection of type T.</returns>
 		IEnumerable<TEntity> GetEntities (int maxRows, params Expression<Func<TEntity, bool>>[] parameters);
 
-		/// <summary>Generic method to 'Get' a collection of T.</summary>
-		/// <param name="parameters">An array of expressions to query by.</param>
-		/// <returns>A collection of type T.</returns>
-		Task<IEnumerable<TEntity>> GetEntitiesAsync (params Expression<Func<TEntity, bool>>[] parameters);
-
-		/// <summary>Generic method to 'Get' a collection of T.</summary>
-		/// <param name="maxRows">Max number of rows to take.</param>
-		/// <param name="parameters">An array of expressions to query by.</param>
-		/// <returns>A collection of type T.</returns>
-		Task<IEnumerable<TEntity>> GetEntitiesAsync (int maxRows, params Expression<Func<TEntity, bool>>[] parameters);
-
 		/// <summary></summary>
 		/// <param name="parameters">An array of expressions to query by.</param>
 		/// <returns>A long count.</returns>

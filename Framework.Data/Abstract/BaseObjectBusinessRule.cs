@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
+using Framework.Core.Extensions;
 using Framework.Data.Interfaces;
-using Framework.Extensions;
 
 namespace Framework.Data.Abstract
 {

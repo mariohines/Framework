@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Runtime.InteropServices;
 using System.Web.Mvc;
 using FluentAssertions;
 using Framework.Web.Builders;
@@ -10,11 +9,24 @@ namespace Framework.Web.Tests.Builders
 	[TestFixture]
 	public class FluentTagBuilderTests
 	{
+		#region TestCaseSources
 		private static readonly object[] AddAttributeKeyValuePairTestSource =
 		{
 			new object[] {"div", new KeyValuePair<string, string>("style", "float: left;"), "<div style=\"float: left;\"></div>"},
 			new object[] {"input", new KeyValuePair<string, string>("type", "button"), "<input type=\"button\"></input>"},
 		};
+
+		private static readonly object[] SetInnerTextMvcHtmlStringSource =
+		{
+			new object[] {"div", new MvcHtmlString("main-div"), "<div>main-div</div>"},
+			new object[] {"input", new MvcHtmlString("input-button"), "<input>input-button</input>"},
+			new object[] {"table", new MvcHtmlString("grid-table"), "<table>grid-table</table>"}
+		};
+
+		private static readonly object[] AppendInnerHtmlMvcHtmlStringSource = {};
+
+		private static readonly object[] CanBuildComplexHtmlSource = {};
+		#endregion
 
 		[TestCase("div", "<div></div>")]
 		[TestCase("body", "<body></body>")]
@@ -58,8 +70,15 @@ namespace Framework.Web.Tests.Builders
 			actualResult.ToString().Should().Be(expectedResult);
 		}
 
+		[TestCase(new object[] { "div", "main-div", "<div id=\"main-div\"></div>" })]
+		[TestCase(new object[] { "input", "input-button", "<input id=\"input-button\"></input>" })]
+		[TestCase(new object[] { "table", "grid-table", "<table id=\"grid-table\"></table>" })]
 		public void GenerateIdTests(string tag, string id, string expectedResult) {
-			
+			// act
+			var actualResult = new FluentTagBuilder(tag).GenerateId(id);
+
+			// assert
+			actualResult.ToString().Should().Be(expectedResult);
 		}
 
 		public void MergeAttributeTests(string tag, IDictionary<string, string> attributes, bool replaceExisting,
@@ -67,11 +86,36 @@ namespace Framework.Web.Tests.Builders
 			
 		}
 
+		[TestCaseSource("SetInnerTextMvcHtmlStringSource")]
 		public void SetInnerTextMvcHtmlStringTests(string tag, MvcHtmlString text, string expectedResult) {
+			// act
+			var actualResult = new FluentTagBuilder(tag).SetInnerText(text);
+
+			// assert
+			actualResult.ToString().Should().Be(expectedResult);
+		}
+
+		[TestCase(new object[] { "div", "main-div", "<div>main-div</div>" })]
+		[TestCase(new object[] { "input", "input-button", "<input>input-button</input>" })]
+		[TestCase(new object[] { "table", "grid-table", "<table>grid-table</table>" })]
+		public void SetInnerTextStringTests(string tag, string text, string expectedResult) {
+			// act
+			var actualResult = new FluentTagBuilder(tag).SetInnerText(text);
+
+			// assert
+			actualResult.ToString().Should().Be(expectedResult);
+		}
+
+		public void AppendInnerHtmlMvcHtmlStringTests(string tag, MvcHtmlString baseHtml, MvcHtmlString additionHtml, string expectedResult) {
 			
 		}
 
-		public void SetInnerTextStringTests(string tag, string text, string expectedResult) {
+		public void AppendInnerHtmlStringTests(string tag, string baseHtml, string additionHtml, string expectedResult)
+		{
+
+		}
+
+		public void CanBuildComplexHtmlTest(string tag, IEnumerable<string> complexHtml, string expectedResult) {
 			
 		}
 	}
