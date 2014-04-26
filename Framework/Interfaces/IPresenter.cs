@@ -1,4 +1,4 @@
-﻿namespace Framework.Web.Mvp.Interface
+﻿namespace Framework.Core.Interfaces
 {
 	/// <summary>Interface for presenter.</summary>
 	public interface IPresenter

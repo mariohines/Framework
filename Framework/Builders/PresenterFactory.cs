@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web.UI;
+using Framework.Core.Interfaces;
 using Framework.Core.IoC;
 using Framework.Core.IoC.Ninject;
-using Framework.Web.Mvp.Interface;
 
-namespace Framework.Web.Mvp
+namespace Framework.Core.Builders
 {
 	/// <summary>The factory to create a presenter.</summary>
 	public class PresenterFactory<TPresenter>
@@ -14,7 +13,7 @@ namespace Framework.Web.Mvp
 		/// <summary>Creates a presenter.</summary>
 		/// <param name="view">The view.</param>
 		/// <returns>The new presenter.</returns>
-		public static TPresenter CreatePresenter(Page view) {
+		public static TPresenter CreatePresenter<TView>(TView view) where TView : IView<TPresenter> {
 			var viewType = view.GetType();
 			var constructor = typeof (TPresenter).GetConstructors().First();
 			var parameters = constructor.GetParameters().ToList();

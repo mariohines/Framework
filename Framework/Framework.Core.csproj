@@ -57,8 +57,10 @@
     <Compile Include="..\BaseAssemblyInfo.cs">
       <Link>Properties\BaseAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Abstract\BaseView.cs" />
     <Compile Include="Builders\ExpressionBuilder.cs" />
     <Compile Include="Builders\ParametersRebinder.cs" />
+    <Compile Include="Builders\PresenterFactory.cs" />
     <Compile Include="Builders\XmlClassBuilder.cs" />
     <Compile Include="Collections\DynamicCollection.cs" />
     <Compile Include="Configuration\DynamicConfigurationManager.cs" />
@@ -88,7 +90,9 @@
     <Compile Include="Interfaces\IDependencyParameter.cs" />
     <Compile Include="Interfaces\ILoggable.cs" />
     <Compile Include="Interfaces\INotifyComplexPropertyChanging.cs" />
+    <Compile Include="Interfaces\IPresenter.cs" />
     <Compile Include="Interfaces\ITranslator.cs" />
+    <Compile Include="Interfaces\IView.cs" />
     <Compile Include="Interfaces\IXmlSerializer.cs" />
     <Compile Include="IoC\GenericIocManager.cs" />
     <Compile Include="IoC\Ninject\NinjectKernel.cs" />

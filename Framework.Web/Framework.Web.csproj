@@ -64,11 +64,6 @@
     <Compile Include="Mvc\Abstract\BaseMvcViewPage.cs" />
     <Compile Include="Mvc\Helpers\HelperExtensions.cs" />
     <Compile Include="Mvc\Interfaces\IFormHandler.cs" />
-    <Compile Include="Mvp\Abstract\BaseView.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Mvp\Interface\IPresenter.cs" />
-    <Compile Include="Mvp\PresenterFactory.cs" />
     <Compile Include="Routing\LowercaseRoute.cs" />
     <Compile Include="Routing\Models\XmlIgnoreRoute.cs" />
     <Compile Include="Routing\Models\XmlRoute.cs" />
