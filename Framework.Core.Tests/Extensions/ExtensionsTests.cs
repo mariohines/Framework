@@ -4,10 +4,10 @@ using System.Linq;
 using FluentAssertions;
 using Framework.Core.Enumerations;
 using Framework.Core.Extensions;
-using Framework.Tests.TestObjects;
+using Framework.Core.Tests.TestObjects;
 using NUnit.Framework;
 
-namespace Framework.Tests.Extensions
+namespace Framework.Core.Tests.Extensions
 {
 	[TestFixture]
 	public class ExtensionsTests
@@ -189,6 +189,17 @@ namespace Framework.Tests.Extensions
 		public void GetDisplayTests(Enum input, string expectedResult) {
 			//act
 			var actualResult = input.GetDisplay();
+
+			//assert
+			actualResult.Should().Be(expectedResult);
+		}
+
+		[TestCase("", null)]
+		[TestCase(" ", null)]
+		[TestCase("test", "test")]
+		public void NullIfEmptyTests(string input, string expectedResult) {
+			//act
+			var actualResult = input.NullIfEmpty();
 
 			//assert
 			actualResult.Should().Be(expectedResult);

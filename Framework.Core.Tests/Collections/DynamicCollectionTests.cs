@@ -4,7 +4,7 @@ using FluentAssertions;
 using Framework.Core.Collections;
 using NUnit.Framework;
 
-namespace Framework.Tests.Collections
+namespace Framework.Core.Tests.Collections
 {
 	[TestFixture]
 	public class DynamicCollectionTests

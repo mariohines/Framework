@@ -91,7 +91,7 @@
       <Project>{02cf0ffe-8074-4a73-a9ec-88314bd34dc4}</Project>
       <Name>Framework.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Framework\Framework.Core.csproj">
+    <ProjectReference Include="..\Framework.Core\Framework.Core.csproj">
       <Project>{7bc9a7b9-ef66-4ac1-8498-c0feb3c34547}</Project>
       <Name>Framework.Core</Name>
     </ProjectReference>

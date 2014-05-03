@@ -2,10 +2,10 @@
 using FluentAssertions;
 using Framework.Core.Builders;
 using Framework.Core.Interfaces;
-using Framework.Tests.TestObjects;
+using Framework.Core.Tests.TestObjects;
 using NUnit.Framework;
 
-namespace Framework.Tests.Builders
+namespace Framework.Core.Tests.Builders
 {
 	[TestFixture]
 	public class XmlClassBuilderTests

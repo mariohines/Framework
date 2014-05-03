@@ -3,7 +3,7 @@ using FluentAssertions;
 using Framework.Core.Configuration;
 using NUnit.Framework;
 
-namespace Framework.Tests.Configuration
+namespace Framework.Core.Tests.Configuration
 {
 	[TestFixture]
 	public class DynamicConfigurationManagerTests

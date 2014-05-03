@@ -53,11 +53,16 @@
     <Compile Include="..\BaseAssemblyInfo.cs">
       <Link>Properties\BaseAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Abstract\BaseView.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="Builders\FluentTagBuilder.cs" />
     <Compile Include="Builders\XmlRouteBuilder.cs" />
     <Compile Include="Builders\XmlRouteWatcher.cs" />
     <Compile Include="Configuration\XmlRoutingConfiguration.cs" />
     <Compile Include="Extensions\Extensions.cs" />
+    <Compile Include="Interfaces\IPresenter.cs" />
+    <Compile Include="Interfaces\IView.cs" />
     <Compile Include="Mvc\Abstract\BaseAsyncMvcController.cs" />
     <Compile Include="Mvc\Abstract\BaseFormAction.cs" />
     <Compile Include="Mvc\Abstract\BaseMvcController.cs" />
@@ -75,7 +80,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Framework\Framework.Core.csproj">
+    <ProjectReference Include="..\Framework.Core\Framework.Core.csproj">
       <Project>{7BC9A7B9-EF66-4AC1-8498-C0FEB3C34547}</Project>
       <Name>Framework.Core</Name>
     </ProjectReference>

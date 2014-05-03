@@ -12,7 +12,7 @@ namespace Framework.Core
 	/// <summary>A CSV reader.</summary>
 	public sealed class CsvReader
 	{
-		private const string ColumnLineExpression = @"(?<ColumnName>\w+(\s|_)?)(?:(\s{4,5}|\t))?";
+		private const string ColumnLineExpression = @"(?<ColumnName>\w+(\s|_)?)(?:(\s{4,5}|\t|,))?";
 		private readonly Stream _stream;
 
 		#region Public Members

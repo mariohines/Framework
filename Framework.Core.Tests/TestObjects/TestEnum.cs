@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Framework.Tests.TestObjects
+namespace Framework.Core.Tests.TestObjects
 {
 	public enum TestEnumOne
 	{
