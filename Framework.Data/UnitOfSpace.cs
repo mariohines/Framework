@@ -1,4 +1,5 @@
 ﻿using System;
+using Framework.Core.Extensions;
 using Framework.Data.Enumerations;
 
 namespace Framework.Data
@@ -6,7 +7,8 @@ namespace Framework.Data
 	/// <summary>Class to handle units of space on drives.</summary>
 	public class UnitOfSpace
 	{
-		/// <summary></summary>
+		private const string SizeFormat = @"{0} {1}";
+
 		internal UnitOfSpace() {
 		}
 
@@ -32,17 +34,9 @@ namespace Framework.Data
 			             	: SizeUnit.Eb;
 			switch (UnitOfSize) {
 				case SizeUnit.Kb:
-					Size = sizeInByte/(double) UnitOfSize;
-					break;
 				case SizeUnit.Mb:
-					Size = sizeInByte/(double) UnitOfSize;
-					break;
 				case SizeUnit.Gb:
-					Size = sizeInByte/(double) UnitOfSize;
-					break;
 				case SizeUnit.Tb:
-					Size = sizeInByte/(double) UnitOfSize;
-					break;
 				case SizeUnit.Eb:
 					Size = sizeInByte/(double) UnitOfSize;
 					break;
@@ -51,10 +45,10 @@ namespace Framework.Data
 			}
 		}
 
-		/// <summary></summary>
-		/// <returns></returns>
+		/// <summary>Returns a string that represents the current object.</summary>
+		/// <returns>A string that represents the current object.</returns>
 		public override string ToString() {
-			return string.Format("{0} {1}", Size.ToString("0.00"), UnitOfSize);
+			return SizeFormat.FormatWith(Size.ToString("0.00"), UnitOfSize);
 		}
 	}
 }

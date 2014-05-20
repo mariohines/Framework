@@ -19,6 +19,7 @@ namespace Framework.Core.IoC
 		/// <summary>Sets the bindings.</summary>
 		/// <param name="bind">The bind.</param>
 		/// <param name="injector">The injector.</param>
+		/// <remarks>This call MUST be made before attemtping to get bindings.</remarks>
 		public static void SetBindings(Func<IDependencyInjector, IDependencyInjector> bind, IDependencyInjector injector) {
 			Injector = bind(injector);
 		}
@@ -28,6 +29,9 @@ namespace Framework.Core.IoC
 		/// <param name="parameters">The parameters that may be necessary to retrieve the binding.</param>
 		/// <returns>The binding of type&lt; t binding&gt;</returns>
 		public static TBinding GetBindingOfType<TBinding>(params IDependencyParameter[] parameters) {
+			if (Injector.IsNull()) {
+				throw new InvalidOperationException("The method 'SetBindings' has not been called to initialize the dependencies.");
+			}
 			return Injector.GetBinding<TBinding>(parameters);
 		}
 
@@ -36,6 +40,9 @@ namespace Framework.Core.IoC
 		/// <param name="parameters">The parameters that may be necessary to retrieve the binding.</param>
 		/// <returns>The binding of type.</returns>
 		public static object GetBindingOfType(Type binding, params IDependencyParameter[] parameters) {
+			if (Injector.IsNull()) {
+				throw new InvalidOperationException("The method 'SetBindings' has not been called to initialize the dependencies.");
+			}
 			return Injector.GetBinding(binding, parameters);
 		}
 	}

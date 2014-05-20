@@ -19,7 +19,7 @@ namespace Framework.Data.Aspects
 
 		/// <summary>Constructor.</summary>
 		/// <param name="options">Options for controlling the operation.</param>
-		public UnitOfWorkAspect(UnitOfWorkOptions options = UnitOfWorkOptions.DefaultOptions) {
+		public UnitOfWorkAspect(UnitOfWorkOptions options = UnitOfWorkOptions.AutoCommit) {
 			_options = options;
 		}
 
@@ -34,7 +34,7 @@ namespace Framework.Data.Aspects
 
 		/// <summary>
 		/// Method executed <b>after</b> the body of methods to which this aspect is applied, but only when the method successfully returns (i.e.
-		/// when no exception flies out the method.).
+		/// when no exception flies out the method).
 		/// </summary>
 		/// <param name="args">Event arguments specifying which method is being executed and which are its arguments.</param>
 		public override void OnSuccess(MethodExecutionArgs args) {

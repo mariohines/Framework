@@ -30,8 +30,10 @@ namespace Framework.Data.Aspects
 		/// continue after the execution of
 		/// <see cref="M:PostSharp.Aspects.IOnMethodBoundaryAspect.OnEntry(PostSharp.Aspects.MethodExecutionArgs)" />.</param>
 		public override void OnEntry(MethodExecutionArgs args) {
-			if (_stopwatch.IsNull()) {}
-
+			if (_stopwatch.IsNull()) {
+				_stopwatch.Start();
+			}
+			_logger.LogInformation(string.Format("Executing method {0}.", args.Method.Name));
 			base.OnEntry(args);
 		}
 
@@ -40,6 +42,7 @@ namespace Framework.Data.Aspects
 		/// </summary>
 		/// <param name="args">Event arguments specifying which method is being executed and which are its arguments.</param>
 		public override void OnException(MethodExecutionArgs args) {
+			_logger.LogException(args.Exception, args.Exception.Data);
 			base.OnException(args);
 		}
 

@@ -79,14 +79,14 @@ namespace Framework.Data.Abstract
 		/// <summary>Return a new instance of the UnitOfWork class with the default behavior.</summary>
 		/// <returns>A new instance of the UnitOfWork class.</returns>
 		public static IUnitOfWork GetUnitOfWork() {
-			return GetUnitOfWork(UnitOfWorkOptions.DefaultOptions);
+			return GetUnitOfWork(UnitOfWorkOptions.AutoCommit);
 		}
 
 		/// <summary>Return a new instance of the UnitOfWork class with the default behavior.</summary>
 		/// <typeparam name="TDataContext">Type of the data context.</typeparam>
 		/// <returns>A new instance of the UnitOfWork class.</returns>
 		public static IUnitOfWork GetUnitOfWork<TDataContext>() where TDataContext : IDataContext {
-			return GetUnitOfWork<TDataContext>(UnitOfWorkOptions.DefaultOptions);
+			return GetUnitOfWork<TDataContext>(UnitOfWorkOptions.AutoCommit);
 		}
 
 		/// <summary>
@@ -97,13 +97,13 @@ namespace Framework.Data.Abstract
 		/// <returns>An instance of the UnitOfWork class.</returns>
 		public static IUnitOfWork GetUnitOfWork(bool createNew) {
 			if (createNew) {
-				return GetUnitOfWork(UnitOfWorkOptions.DefaultOptions);
+				return GetUnitOfWork(UnitOfWorkOptions.AutoCommit);
 			}
 
 			// Return existing UoW if there is one..
 			// Get instance to ObjectContext..
-			var context = GenericIocManager.IsInUse 
-				? GenericIocManager.GetBindingOfType<IUnitOfWork>() 
+			var context = GenericIocManager.IsInUse
+				? GenericIocManager.GetBindingOfType<IUnitOfWork>()
 				: NinjectManager.GetBindingOfType<IUnitOfWork>();
 			if (context.UnitOfWorkCount == 0) {
 				throw new InvalidUnitOfWorkException();
@@ -121,7 +121,7 @@ namespace Framework.Data.Abstract
 		public static IUnitOfWork GetUnitOfWork<TDataContext>(bool createNew)
 			where TDataContext : IDataContext {
 			if (createNew) {
-				return GetUnitOfWork<TDataContext>(UnitOfWorkOptions.DefaultOptions);
+				return GetUnitOfWork<TDataContext>(UnitOfWorkOptions.AutoCommit);
 			}
 
 			// Return existing UoW if there is one..
@@ -163,14 +163,14 @@ namespace Framework.Data.Abstract
 		/// <summary>Execute unit of work code block inside a unit of work.</summary>
 		/// <param name="codeBlock">code block to execute inside as a unit of work.</param>
 		public static void Do(Action<IUnitOfWork> codeBlock) {
-			Do(UnitOfWorkOptions.DefaultOptions, codeBlock);
+			Do(UnitOfWorkOptions.AutoCommit, codeBlock);
 		}
 
 		/// <summary>Execute unit of work code block inside a unit of work.</summary>
 		/// <typeparam name="TDataContext">Type of the data context.</typeparam>
 		/// <param name="codeBlock">code block to execute inside as a unit of work.</param>
 		public static void Do<TDataContext>(Action<IUnitOfWork> codeBlock) where TDataContext : IDataContext {
-			Do<TDataContext>(UnitOfWorkOptions.DefaultOptions, codeBlock);
+			Do<TDataContext>(UnitOfWorkOptions.AutoCommit, codeBlock);
 		}
 
 		/// <summary>Execute unit of work code block inside a unit of work.</summary>
@@ -241,7 +241,7 @@ namespace Framework.Data.Abstract
 		/// <typeparam name="TEntity">Type of the entity.</typeparam>
 		/// <returns>The repository&lt; t entity&gt;</returns>
 		public IRepository<TEntity> GetRepository<TEntity>(params IParameter[] parameters) where TEntity : class, new() {
-			var parameterList = new List<IParameter>(parameters) { new ConstructorArgument("context", _dataContext) };
+			var parameterList = new List<IParameter>(parameters) {new ConstructorArgument("context", _dataContext)};
 			return GenericIocManager.IsInUse
 				? GenericIocManager.GetBindingOfType<IRepository<TEntity>>()
 				: NinjectManager.GetBindingOfType<IRepository<TEntity>>(parameterList.ToArray());
@@ -266,7 +266,7 @@ namespace Framework.Data.Abstract
 		/// <summary>Rollback changes not already commited.</summary>
 		public void RollbackChanges() {
 			// Rollback changes.
-			Status = UnitOfWorkStatus.RolledBack;	
+			Status = UnitOfWorkStatus.RolledBack;
 			Transaction.Current.Rollback();
 		}
 
