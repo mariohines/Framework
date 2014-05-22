@@ -98,7 +98,7 @@ namespace Framework.Data.Abstract
 		/// <returns>A collection of type TEntity.</returns>
 		[DebuggerNonUserCode]
 		public virtual IEnumerable<TEntity> GetEntities(params Expression<Func<TEntity, bool>>[] parameters) {
-			return parameters.Aggregate(ItemSet.AsExpandable(), (current, expression) => current.Where(expression)).AsEnumerable();
+			return parameters.Aggregate(ItemSet.AsExpandable(), (current, expression) => current.Where(expression)).ToList();
 		}
 
 		/// <summary>Generic method to 'Get' a collection of T.</summary>
@@ -109,7 +109,15 @@ namespace Framework.Data.Abstract
 		public virtual IEnumerable<TEntity> GetEntities(int maxRows, params Expression<Func<TEntity, bool>>[] parameters) {
 			return parameters.Aggregate(ItemSet.AsExpandable(), (current, expression) => current.Where(expression))
 				.Take(maxRows)
-				.AsEnumerable();
+				.ToList();
+		}
+
+		/// <summary>Generic method for 'Any' across the collection of T..</summary>
+		/// <param name="parameters">An array of expressions to query by.</param>
+		/// <returns>true if it succeeds, false if it fails.</returns>
+		[DebuggerNonUserCode]
+		public virtual bool Any(params Expression<Func<TEntity, bool>>[] parameters) {
+			return parameters.Aggregate(ItemSet.AsExpandable(), (current, expression) => current.Where(expression)).Any();
 		}
 
 		/// <summary>Gets entities count.</summary>
@@ -120,9 +128,18 @@ namespace Framework.Data.Abstract
 			return parameters.Aggregate(ItemSet.AsExpandable(), (current, expression) => current.Where(expression)).LongCount();
 		}
 
+		/// <summary>Updates this object.</summary>
+		/// <param name="filterExpression">The filter expression.</param>
+		/// <param name="updateExpression">The update expression.</param>
+		[DebuggerNonUserCode]
+		public virtual void Update(Expression<Func<TEntity, bool>> filterExpression, Expression<Func<TEntity, TEntity>> updateExpression) {
+			ItemSet.AsExpandable().Where(filterExpression).Update(updateExpression);
+		}
+
 		/// <summary>Adds entities.</summary>
 		/// <param name="entities">The entities to add.</param>
-		public void Add(params TEntity[] entities) {
+		[DebuggerNonUserCode]
+		public virtual void Add(params TEntity[] entities) {
 			entities.ForEach(Add);
 		}
 
@@ -136,7 +153,7 @@ namespace Framework.Data.Abstract
 		/// <summary>Removes the given entities.</summary>
 		/// <param name="expressions">The entities to add.</param>
 		[DebuggerNonUserCode]
-		public void Remove(params Expression<Func<TEntity, bool>>[] expressions) {
+		public virtual void Remove(params Expression<Func<TEntity, bool>>[] expressions) {
 			expressions.Aggregate(ItemSet.AsExpandable(), (current, expression) => current.Where(expression)).Delete();
 		}
 
@@ -158,7 +175,7 @@ namespace Framework.Data.Abstract
 		/// <param name="entities">The entities to update.</param>
 		[DebuggerNonUserCode]
 		public virtual void Update(params TEntity[] entities) {
-			entities.ForEach(e => ItemSet.Update(u => e));
+			entities.ForEach(e => Context.SetChanges(e));
 		}
 
 		/// <summary>Attaches the given entities.</summary>

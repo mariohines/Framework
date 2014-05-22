@@ -36,10 +36,20 @@ namespace Framework.Data.Interfaces
 		/// <returns>A collection of type T.</returns>
 		IEnumerable<TEntity> GetEntities (int maxRows, params Expression<Func<TEntity, bool>>[] parameters);
 
+		/// <summary>Generic method for 'Any' across the collection of T..</summary>
+		/// <param name="parameters">An array of expressions to query by.</param>
+		/// <returns>true if it succeeds, false if it fails.</returns>
+		bool Any(params Expression<Func<TEntity, bool>>[] parameters);
+
 		/// <summary></summary>
 		/// <param name="parameters">An array of expressions to query by.</param>
 		/// <returns>A long count.</returns>
 		long GetEntitiesCount (params Expression<Func<TEntity, bool>>[] parameters);
+
+		/// <summary>Updates this object.</summary>
+		/// <param name="filterExpression">The filter expression.</param>
+		/// <param name="updateExpression">The update expression.</param>
+		void Update(Expression<Func<TEntity, bool>> filterExpression, Expression<Func<TEntity, TEntity>> updateExpression);
 
 		/// <summary>Method to execute a stored procedure.</summary>
 		/// <param name="procedureName">The name of the procedure.</param>
