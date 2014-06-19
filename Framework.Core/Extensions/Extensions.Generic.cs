@@ -53,7 +53,7 @@ namespace Framework.Core.Extensions
 		/// <param name="source">Source for the.</param>
 		/// <param name="batchSize">Size of the batch.</param>
 		/// <returns>An enumerator that allows foreach to be used to process as batch&lt; t source&gt; in this collection.</returns>
-		public static IEnumerable<IEnumerable<TSource>> AsBatch<TSource>(IEnumerable<TSource> source, int batchSize) {
+		public static IEnumerable<IEnumerable<TSource>> AsBatch<TSource>(this IEnumerable<TSource> source, int batchSize) {
 			var collection = source.ToList();
 			var totalSize = collection.Count;
 

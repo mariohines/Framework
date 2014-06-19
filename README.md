@@ -3,6 +3,10 @@ Framework
 
 Primary location for Framework utility libraries.
 
+- 06-19-2014
+>- Fixed an extension for IEnumerable&lt;TSource&gt;.
+>- Incremented version from 4.2.0 to 4.2.1.
+
 - 05-21-2014
 >- Added 2 new method signatures in IDbRepository, 'Any' and 'Update' (Update is an extension from EntityFramework.Extended library)
 >- Implemented new methods in BaseDbRepository.

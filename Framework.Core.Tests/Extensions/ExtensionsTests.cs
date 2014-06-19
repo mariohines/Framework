@@ -162,6 +162,7 @@ namespace Framework.Core.Tests.Extensions
 		}
 
 		[TestCase("mario hines", "Mario Hines")]
+		[TestCase("MARIO HINES", "Mario Hines")]
 		public void ToProperCaseTest(string value, string expectedResult) {
 			//act
 			var actualResult = value.ToProperCase();
