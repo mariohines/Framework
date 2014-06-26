@@ -3,6 +3,10 @@ Framework
 
 Primary location for Framework utility libraries.
 
+- 06-26-2014
+>- Fixed issue with using the 'Update' extension.
+>- Incrememted version from 4.2.1 to 4.2.2.
+
 - 06-19-2014
 >- Fixed an extension for IEnumerable&lt;TSource&gt;.
 >- Incremented version from 4.2.0 to 4.2.1.

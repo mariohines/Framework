@@ -133,7 +133,7 @@ namespace Framework.Data.Abstract
 		/// <param name="updateExpression">The update expression.</param>
 		[DebuggerNonUserCode]
 		public virtual void Update(Expression<Func<TEntity, bool>> filterExpression, Expression<Func<TEntity, TEntity>> updateExpression) {
-			ItemSet.AsExpandable().Where(filterExpression).Update(updateExpression);
+			ItemSet.Where(filterExpression).Update(updateExpression);
 		}
 
 		/// <summary>Adds entities.</summary>
