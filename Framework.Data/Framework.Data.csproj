@@ -54,10 +54,6 @@
     <Reference Include="Ninject">
       <HintPath>C:\Nuget\Packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
     </Reference>
-    <Reference Include="PostSharp, Version=3.0.41.9, Culture=neutral, PublicKeyToken=b13fd38b8f9c99d7, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\Libraries\NuGetPackages\PostSharp.3.0.41\lib\net20\PostSharp.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -74,9 +70,6 @@
     <Compile Include="Abstract\BaseObjectBusinessRule.cs" />
     <Compile Include="Abstract\BaseObjectRepository.cs" />
     <Compile Include="Abstract\UnitOfWork.cs" />
-    <Compile Include="Aspects\LoggingAspect.cs" />
-    <Compile Include="Aspects\TransactionAspect.cs" />
-    <Compile Include="Aspects\UnitOfWorkAspect.cs" />
     <Compile Include="AuditInfo.cs" />
     <Compile Include="Collections\ExtendedPropertiesDictionary.cs" />
     <Compile Include="Collections\InMemoryObjectSet.cs" />
@@ -121,7 +114,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Framework.Core\Framework.Core.csproj">

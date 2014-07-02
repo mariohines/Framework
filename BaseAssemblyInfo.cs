@@ -7,4 +7,4 @@
 [assembly: AssemblyCopyright("Copyright © Gigatech Inc. 2012")]
 [assembly: AssemblyTrademark("None")]
 
-[assembly: AssemblyVersion("4.2.2")]
+[assembly: AssemblyVersion("4.2.3")]
