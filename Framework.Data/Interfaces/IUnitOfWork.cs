@@ -12,6 +12,7 @@
 
 using System;
 using System.Collections.Generic;
+using Framework.Core.Interfaces;
 using Framework.Data.Enumerations;
 using Ninject.Parameters;
 
@@ -44,11 +45,22 @@ namespace Framework.Data.Interfaces
 		/// <value>true if this object is top level, false if not.</value>
 		bool IsTopLevel { get; }
 
+		/// <summary>Gets a context for the curren.</summary>
+		/// <value>The curren context.</value>
+		IDataContext CurrenContext { get; }
+
 		/// <summary>Gets the repository.</summary>
 		/// <typeparam name="TEntity">Type of the entity.</typeparam>
 		/// <param name="parameters">Options for controlling the operation.</param>
 		/// <returns>The repository&lt; t entity&gt;</returns>
+		[Obsolete("This is no longer used, please use IDependencyParameter based method instead.", true)]
 		IRepository<TEntity> GetRepository<TEntity>(params IParameter[] parameters) where TEntity : class, new();
+
+		/// <summary>Gets the repository.</summary>
+		/// <typeparam name="TEntity">Type of the entity.</typeparam>
+		/// <param name="parameters">Options for controlling the operation.</param>
+		/// <returns>The repository&lt; t entity&gt;</returns>
+		IRepository<TEntity> GetRepository<TEntity>(IDependencyParameter[] parameters) where TEntity : class, new(); 
 
 		/// <summary>Commit all pending changes to repository.</summary>
 		/// <returns>A value indicating the result of the commit operation.</returns>

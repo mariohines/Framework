@@ -63,7 +63,6 @@
     <Compile Include="Builders\XmlClassBuilder.cs" />
     <Compile Include="Collections\DynamicCollection.cs" />
     <Compile Include="Configuration\DynamicConfigurationManager.cs" />
-    <Compile Include="CsvReader.cs" />
     <Compile Include="Enumerations\CommonEnumerations.cs" />
     <Compile Include="Extensions\Extensions.Assembly.cs">
       <DependentUpon>Extensions.cs</DependentUpon>

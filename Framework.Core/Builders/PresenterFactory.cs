@@ -25,9 +25,7 @@ namespace Framework.Core.Builders
 								   }
 								   else {
 									   var type = parameter.ParameterType;
-									   var binding = GenericIocManager.IsInUse 
-										   ? GenericIocManager.GetBindingOfType(type) 
-										   : NinjectManager.GetBindingOfType(type);
+									   var binding = GenericIocManager.GetBindingOfType(type);
 									   arguments.Add(binding);
 								   }
 							   });

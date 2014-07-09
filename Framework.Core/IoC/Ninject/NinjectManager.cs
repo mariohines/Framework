@@ -6,7 +6,7 @@ namespace Framework.Core.IoC.Ninject
 {
 	/// <summary>Manager for Inversion of Control containers.</summary>
 	/// <remarks>A manager for the Ninject framework and handling bindings.</remarks>
-	[Obsolete("This is no longer used, please use IDependencyInjector and GenericIocManager instead.", false)]
+	[Obsolete("This is no longer used, please use IDependencyInjector and GenericIocManager instead.", true)]
 	public sealed class NinjectManager
 	{
 		private static IKernel _kernel;

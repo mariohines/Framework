@@ -21,9 +21,7 @@ namespace Framework.Web.Abstract
 
 		/// <summary>Specialised default constructor for use only by derived classes.</summary>
 		protected BaseView() {
-			Presenter = GenericIocManager.IsInUse
-				? GenericIocManager.GetBindingOfType<TPresenter>()
-				: NinjectManager.GetBindingOfType<TPresenter>();
+			Presenter = GenericIocManager.GetBindingOfType<TPresenter>();
 		}
 
 		#region Overrides of Control

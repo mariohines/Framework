@@ -9,6 +9,7 @@
 using System;
 using System.Collections.Generic;
 using System.Transactions;
+using Framework.Core.Interfaces;
 using Framework.Core.IoC;
 using Framework.Core.IoC.Ninject;
 using Framework.Data.Enumerations;
@@ -56,6 +57,10 @@ namespace Framework.Data.Abstract
 			get { return _dataContext.UnitOfWorkCount == 1; }
 		}
 
+		/// <summary>Gets a context for the curren.</summary>
+		/// <value>The curren context.</value>
+		public IDataContext CurrenContext { get { return _dataContext; } }
+
 		/// <summary>Gets or sets the number of unit of works.</summary>
 		/// <value>The number of unit of works.</value>
 		public int UnitOfWorkCount { get; set; }
@@ -102,9 +107,7 @@ namespace Framework.Data.Abstract
 
 			// Return existing UoW if there is one..
 			// Get instance to ObjectContext..
-			var context = GenericIocManager.IsInUse
-				? GenericIocManager.GetBindingOfType<IUnitOfWork>()
-				: NinjectManager.GetBindingOfType<IUnitOfWork>();
+			var context = GenericIocManager.GetBindingOfType<IUnitOfWork>();
 			if (context.UnitOfWorkCount == 0) {
 				throw new InvalidUnitOfWorkException();
 			}
@@ -126,9 +129,7 @@ namespace Framework.Data.Abstract
 
 			// Return existing UoW if there is one..
 			// Get instance to ObjectContext..
-			var context = GenericIocManager.IsInUse
-				? GenericIocManager.GetBindingOfType<IUnitOfWork>()
-				: NinjectManager.GetBindingOfType<IUnitOfWork>();
+			var context = GenericIocManager.GetBindingOfType<IUnitOfWork>();
 			if (context.UnitOfWorkCount == 0) {
 				throw new InvalidUnitOfWorkException();
 			}
@@ -141,9 +142,7 @@ namespace Framework.Data.Abstract
 		/// <param name="defaultOption">The default Behavior for the new unitOfWork object.</param>
 		/// <returns>A new instance of the UnitOfWork class with the Default behavior set.</returns>
 		public static IUnitOfWork GetUnitOfWork(UnitOfWorkOptions defaultOption) {
-			var newUoW = GenericIocManager.IsInUse
-				? GenericIocManager.GetBindingOfType<IUnitOfWork>()
-				: NinjectManager.GetBindingOfType<IUnitOfWork>();
+			var newUoW = GenericIocManager.GetBindingOfType<IUnitOfWork>();
 			newUoW.DefaultOptions = defaultOption;
 			return newUoW;
 		}
@@ -154,9 +153,7 @@ namespace Framework.Data.Abstract
 		/// <returns>A new instance of the UnitOfWork class.</returns>
 		public static IUnitOfWork GetUnitOfWork<TDataContext>(UnitOfWorkOptions defaultOption)
 			where TDataContext : IDataContext {
-			var context = GenericIocManager.IsInUse
-				? GenericIocManager.GetBindingOfType<TDataContext>()
-				: NinjectManager.GetBindingOfType<TDataContext>();
+				var context = GenericIocManager.GetBindingOfType<TDataContext>();
 			return new UnitOfWork(context) {DefaultOptions = defaultOption};
 		}
 
@@ -240,11 +237,17 @@ namespace Framework.Data.Abstract
 		/// <summary>Gets the repository.</summary>
 		/// <typeparam name="TEntity">Type of the entity.</typeparam>
 		/// <returns>The repository&lt; t entity&gt;</returns>
+		[Obsolete("This is no longer used, please use IDependencyParameter based method instead.", true)]
 		public IRepository<TEntity> GetRepository<TEntity>(params IParameter[] parameters) where TEntity : class, new() {
 			var parameterList = new List<IParameter>(parameters) {new ConstructorArgument("context", _dataContext)};
-			return GenericIocManager.IsInUse
-				? GenericIocManager.GetBindingOfType<IRepository<TEntity>>()
-				: NinjectManager.GetBindingOfType<IRepository<TEntity>>(parameterList.ToArray());
+			return NinjectManager.GetBindingOfType<IRepository<TEntity>>(parameterList.ToArray());
+		}
+
+		/// <summary>Gets the repository.</summary>
+		/// <typeparam name="TEntity">Type of the entity.</typeparam>
+		/// <returns>The repository&lt; t entity&gt;</returns>
+		public IRepository<TEntity> GetRepository<TEntity>(IDependencyParameter[] parameters) where TEntity : class, new() {
+			return GenericIocManager.GetBindingOfType<IRepository<TEntity>>(parameters);
 		}
 
 		/// <summary>Commit all changes to repository.</summary>

@@ -1,7 +1,14 @@
-Framework
-=========
+#Framework Solution#
 
-Primary location for Framework utility libraries.
+###Primary location for Framework utility libraries.###
+
+- 07-09-2014
+>- Put an obsolete attribute on the Ninject-based objects.
+>- Removed use of Ninject-based objects in preparation of removing dependency of Ninject.
+>- Added new method to IUnitOfWork and its implementation.
+>- Added new property to expose the current IDataContext in the UnitOfWork object.
+>- Removed the CsvReader class.
+>- Incremented version from 4.2.2 to 4.3.0.
 
 - 06-26-2014
 >- Fixed issue with using the 'Update' extension.
