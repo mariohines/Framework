@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Framework.Core.Interfaces
 {
@@ -16,5 +17,15 @@ namespace Framework.Core.Interfaces
 		/// <param name="models">The models.</param>
 		/// <returns>A collection of translated domain models.</returns>
 		IEnumerable<TDomainModel> Translate(IEnumerable<TDataModel> models);
+
+		/// <summary>Translate asynchronous.</summary>
+		/// <param name="model">The model.</param>
+		/// <returns>A Task&lt;TDomainModel&gt;</returns>
+		Task<TDomainModel> TranslateAsync(TDataModel model);
+
+		/// <summary>Translate asynchronous.</summary>
+		/// <param name="models">The models.</param>
+		/// <returns>A Task&lt;TDomainModel&gt;</returns>
+		Task<List<TDomainModel>> TranslateAsync(IEnumerable<TDataModel> models);
 	}
 }

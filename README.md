@@ -2,6 +2,12 @@
 
 ###Primary location for Framework utility libraries.###
 
+- 12-03-2014
+>- Created a NoWeb configuration to publish to Nuget without requiring web.
+>- Added an IEnumerable call for getting bindings in NinjectManager, GenericIocManager, and IDependencyInjector.
+>- Added Coalesce extension for string.
+>- Added async calls for Translate.
+
 - 07-09-2014
 >- Put an obsolete attribute on the Ninject-based objects.
 >- Removed use of Ninject-based objects in preparation of removing dependency of Ninject.

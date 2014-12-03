@@ -53,14 +53,27 @@ namespace Framework.Data.Interfaces
 		/// <typeparam name="TEntity">Type of the entity.</typeparam>
 		/// <param name="parameters">Options for controlling the operation.</param>
 		/// <returns>The repository&lt; t entity&gt;</returns>
-		[Obsolete("This is no longer used, please use IDependencyParameter based method instead.", true)]
+		[Obsolete("This is no longer used, please use IDependencyParameter based method instead.", false)]
 		IRepository<TEntity> GetRepository<TEntity>(params IParameter[] parameters) where TEntity : class, new();
 
+		/// <summary>Gets database repository.</summary>
+		/// <typeparam name="TEntity">Type of the entity.</typeparam>
+		/// <param name="parameters">Options for controlling the operation.</param>
+		/// <returns>The database repository.</returns>
+		[Obsolete("This is no longer used, please use IDependencyParameter based method instead.", false)]
+		IDbRepository<TEntity> GetDbRepository<TEntity>(params IParameter[] parameters) where TEntity : class, new();
+			
 		/// <summary>Gets the repository.</summary>
 		/// <typeparam name="TEntity">Type of the entity.</typeparam>
 		/// <param name="parameters">Options for controlling the operation.</param>
 		/// <returns>The repository&lt; t entity&gt;</returns>
-		IRepository<TEntity> GetRepository<TEntity>(IDependencyParameter[] parameters) where TEntity : class, new(); 
+		IRepository<TEntity> GetRepository<TEntity>(params IDependencyParameter[] parameters) where TEntity : class, new();
+
+		/// <summary>Gets database repository.</summary>
+		/// <typeparam name="TEntity">Type of the entity.</typeparam>
+		/// <param name="parameters">Options for controlling the operation.</param>
+		/// <returns>The database repository.</returns>
+		IDbRepository<TEntity> GetDbRepository<TEntity>(params IDependencyParameter[] parameters) where TEntity : class, new();
 
 		/// <summary>Commit all pending changes to repository.</summary>
 		/// <returns>A value indicating the result of the commit operation.</returns>

@@ -85,5 +85,13 @@ namespace Framework.Core.Extensions
 			parameters.ForEach(p => builder.Append(p));
 			return builder.Append(source).ToString();
 		}
+
+		/// <summary>A string extension method that coalesces.</summary>
+		/// <param name="value">The value to act on.</param>
+		/// <param name="comparers">A variable-length parameters list containing comparers.</param>
+		/// <returns>A string.</returns>
+		public static string Coalesce(this string value, params string[] comparers) {
+			return value.HasValue() ? value : comparers.FirstOrDefault(comparer => comparer.HasValue());
+		}
 	}
 }

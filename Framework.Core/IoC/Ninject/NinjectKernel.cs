@@ -6,7 +6,7 @@ namespace Framework.Core.IoC.Ninject
 {
 	/// <summary>IOC kernel.</summary>
 	/// <remarks>A singleton of the standard kernel for Ninject.</remarks>
-	[Obsolete("This is no longer used, please use IDependencyInjector and GenericIocManager instead.", true)]
+	[Obsolete("This is no longer used, please use IDependencyInjector and GenericIocManager instead.", false)]
 	public sealed class NinjectKernel
 	{
 		/// <summary>The kernel.</summary>

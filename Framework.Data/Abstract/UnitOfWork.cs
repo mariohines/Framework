@@ -237,10 +237,20 @@ namespace Framework.Data.Abstract
 		/// <summary>Gets the repository.</summary>
 		/// <typeparam name="TEntity">Type of the entity.</typeparam>
 		/// <returns>The repository&lt; t entity&gt;</returns>
-		[Obsolete("This is no longer used, please use IDependencyParameter based method instead.", true)]
+		[Obsolete("This is no longer used, please use IDependencyParameter based method instead.", false)]
 		public IRepository<TEntity> GetRepository<TEntity>(params IParameter[] parameters) where TEntity : class, new() {
 			var parameterList = new List<IParameter>(parameters) {new ConstructorArgument("context", _dataContext)};
 			return NinjectManager.GetBindingOfType<IRepository<TEntity>>(parameterList.ToArray());
+		}
+
+		/// <summary>Gets database repository.</summary>
+		/// <typeparam name="TEntity">Type of the entity.</typeparam>
+		/// <param name="parameters">Options for controlling the operation.</param>
+		/// <returns>The database repository.</returns>
+		[Obsolete("This is no longer used, please use IDependencyParameter based method instead.", false)]
+		public IDbRepository<TEntity> GetDbRepository<TEntity>(params IParameter[] parameters) where TEntity : class, new() {
+			var parameterList = new List<IParameter>(parameters) { new ConstructorArgument("context", _dataContext) };
+			return NinjectManager.GetBindingOfType<IDbRepository<TEntity>>(parameterList.ToArray());
 		}
 
 		/// <summary>Gets the repository.</summary>
@@ -248,6 +258,14 @@ namespace Framework.Data.Abstract
 		/// <returns>The repository&lt; t entity&gt;</returns>
 		public IRepository<TEntity> GetRepository<TEntity>(IDependencyParameter[] parameters) where TEntity : class, new() {
 			return GenericIocManager.GetBindingOfType<IRepository<TEntity>>(parameters);
+		}
+
+		/// <summary>Gets database repository.</summary>
+		/// <typeparam name="TEntity">Type of the entity.</typeparam>
+		/// <param name="parameters">Options for controlling the operation.</param>
+		/// <returns>The database repository.</returns>
+		public IDbRepository<TEntity> GetDbRepository<TEntity>(params IDependencyParameter[] parameters) where TEntity : class, new() {
+			return GenericIocManager.GetBindingOfType<IDbRepository<TEntity>>(parameters);
 		}
 
 		/// <summary>Commit all changes to repository.</summary>

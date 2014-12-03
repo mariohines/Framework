@@ -36,6 +36,15 @@
     <Prefer32Bit>false</Prefer32Bit>
     <DocumentationFile>bin\Release\Framework.Web.XML</DocumentationFile>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'NoWebRelease|AnyCPU'">
+    <OutputPath>bin\NoWebRelease\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>bin\Release\Framework.Web.XML</DocumentationFile>
+    <Optimize>true</Optimize>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Ninject">
       <HintPath>C:\Nuget\Packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
@@ -90,7 +99,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>if "$(ConfigurationName)" == "Release" XCOPY /I /F /R /Y "$(TargetDir)*.*l" $(BUILDS)\$(SolutionName)</PostBuildEvent>
+    <PostBuildEvent>if not "$(ConfigurationName)" == "Debug" XCOPY /I /F /R /Y "$(TargetDir)*.*l" $(BUILDS)\$(SolutionName)\$(ConfigurationName)</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

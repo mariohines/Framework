@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Framework.Core.Interfaces
 {
@@ -38,11 +39,23 @@ namespace Framework.Core.Interfaces
 		/// <returns>The binding&lt; t binding&gt;</returns>
 		TBinding GetBinding<TBinding>(params IDependencyParameter[] parameters);
 
+		/// <summary>Gets the bindings in this collection.</summary>
+		/// <typeparam name="TBinding">Type of the binding.</typeparam>
+		/// <param name="parameters">Options for controlling the operation.</param>
+		/// <returns>An enumerator that allows foreach to be used to process the bindings in this collection.</returns>
+		IEnumerable<TBinding> GetBindings<TBinding>(params IDependencyParameter[] parameters);
+
 		/// <summary>Gets a binding.</summary>
 		/// <param name="binding">The binding.</param>
 		/// <param name="parameters">Options for controlling the operation.</param>
 		/// <returns>The binding.</returns>
 		object GetBinding(Type binding, params IDependencyParameter[] parameters);
+
+		/// <summary>Gets the bindings in this collection.</summary>
+		/// <param name="binding">The binding.</param>
+		/// <param name="parameters">Options for controlling the operation.</param>
+		/// <returns>An enumerator that allows foreach to be used to process the bindings in this collection.</returns>
+		IEnumerable<object> GetBindings(Type binding, params IDependencyParameter[] parameters);
 	}
 
 	/// <summary>Interface for dependency injector.</summary>

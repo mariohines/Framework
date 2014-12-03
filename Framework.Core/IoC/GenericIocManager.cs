@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Framework.Core.Extensions;
 using Framework.Core.Interfaces;
 
@@ -35,6 +36,18 @@ namespace Framework.Core.IoC
 			return Injector.GetBinding<TBinding>(parameters);
 		}
 
+		/// <summary>Gets the bindings of types in this collection.</summary>
+		/// <exception cref="InvalidOperationException">Thrown when the requested operation is invalid.</exception>
+		/// <typeparam name="TBinding">Type of the binding.</typeparam>
+		/// <param name="parameters">The parameters that may be necessary to retrieve the binding.</param>
+		/// <returns>An enumerator that allows foreach to be used to process the bindings of types in this collection.</returns>
+		public static IEnumerable<TBinding> GetBindingsOfType<TBinding>(params IDependencyParameter[] parameters) {
+			if (Injector.IsNull()) {
+				throw new InvalidOperationException("The method 'SetBindings' has not been called to initialize the dependencies.");
+			}
+			return Injector.GetBindings<TBinding>(parameters);
+		}
+
 		/// <summary>Gets a binding of type.</summary>
 		/// <param name="binding">The binding.</param>
 		/// <param name="parameters">The parameters that may be necessary to retrieve the binding.</param>
@@ -44,6 +57,18 @@ namespace Framework.Core.IoC
 				throw new InvalidOperationException("The method 'SetBindings' has not been called to initialize the dependencies.");
 			}
 			return Injector.GetBinding(binding, parameters);
+		}
+
+		/// <summary>Gets the bindings of types in this collection.</summary>
+		/// <exception cref="InvalidOperationException">Thrown when the requested operation is invalid.</exception>
+		/// <param name="binding">The binding.</param>
+		/// <param name="parameters">The parameters that may be necessary to retrieve the binding.</param>
+		/// <returns>An enumerator that allows foreach to be used to process the bindings of types in this collection.</returns>
+		public static IEnumerable<object> GetBindingsOfType(Type binding, params IDependencyParameter[] parameters) {
+			if (Injector.IsNull()) {
+				throw new InvalidOperationException("The method 'SetBindings' has not been called to initialize the dependencies.");
+			}
+			return Injector.GetBindings(binding, parameters);
 		}
 	}
 }

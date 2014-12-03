@@ -37,6 +37,15 @@
     <DocumentationFile>bin\Release\Framework.Core.xml</DocumentationFile>
     <DebugSymbols>false</DebugSymbols>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'NoWebRelease|AnyCPU'">
+    <OutputPath>bin\NoWebRelease\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>bin\NoWebRelease\Framework.Core.xml</DocumentationFile>
+    <Optimize>true</Optimize>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="LinqKit">
       <HintPath>C:\Nuget\Packages\LinqKit.1.0\lib\35\LinqKit.dll</HintPath>
@@ -107,7 +116,7 @@
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>if "$(ConfigurationName)" == "Release" XCOPY /I /F /R /Y "$(TargetDir)*.*l" $(BUILDS)\$(SolutionName)</PostBuildEvent>
+    <PostBuildEvent>if not "$(ConfigurationName)" == "Debug" XCOPY /I /F /R /Y "$(TargetDir)*.*l" $(BUILDS)\$(SolutionName)\$(ConfigurationName)</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
