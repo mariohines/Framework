@@ -17,7 +17,7 @@ namespace Framework.Core.Builders
 	{
 		private readonly XmlWriterSettings _settings;
 		private readonly XslCompiledTransform _xsltTransformer;
-		private const string NamespaceExpression = "\\sxmlns:\\w+=\".*\"";
+		private const string NamespaceExpression = "\\sxmlns[^\"]+\"[^\"]+\"";
 
 		///<summary>Default constructor.</summary>
 		public XmlClassBuilder(Encoding encoding = null, bool canIndent = true, NewLineHandling lineHandling = NewLineHandling.Entitize) {
